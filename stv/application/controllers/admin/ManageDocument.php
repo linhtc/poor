@@ -14,6 +14,7 @@ class ManageDocument extends MY_Controller {
 	private $classModel;
 	private $subjectModel;
 	private $documentModel;
+	private $docDetailModel;
 	private $viewPath;
 	
     function __construct() {
@@ -23,6 +24,7 @@ class ManageDocument extends MY_Controller {
         $this->classModel = 'e_classes';
         $this->subjectModel = 'e_subjects';
         $this->documentModel = 'e_documents';
+        $this->docDetailModel = 'e_doc_details';
         $this->viewPath = 'admin/document/';
     }
 
@@ -103,11 +105,16 @@ class ManageDocument extends MY_Controller {
             'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
         );
 
+        $subjectList = $this->db->select('id, parent, subject')->from($this->subjectModel)->where('deleted', 0)->get()->result();
+        $classList = $this->db->select('id, class')->from($this->classModel)->where('deleted', 0)->get()->result();
+        
         $data = array(
             'viewPath' => $this->viewPath,
             'permission' => $permission,
             'listJs' => add_Js($listJs),
-            'listCss' => add_css($listCss)
+            'listCss' => add_css($listCss),
+        		'subjectList' => $subjectList,
+        		'classList' => $classList
         );
         $this->parser->parse($this->viewPath."add", $data);
     }
@@ -133,12 +140,14 @@ class ManageDocument extends MY_Controller {
         $this->layout->set_layout('default');
 
 
-        $item = $this->db->select('id, class')
-            ->from($this->classModel)
-            ->where('id', $id)
+        $item = $this->db->select('id, subject, class')
+        	->from($this->documentModel)
+        	->where('id', $id)
+        	->where('deleted', 0)
             ->get()
             ->row()
         ;
+//         print_r($item); exit;
         if(empty($item->id)){
             redirect(base_url() . "admin/permission-denied");
             exit;
@@ -154,11 +163,17 @@ class ManageDocument extends MY_Controller {
             'static/default/admin/template/plugins/blockui/jquery.blockUI.js',
             'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
         );
+        
+        $subjectList = $this->db->select('id, parent, subject')->from($this->subjectModel)->where('deleted', 0)->get()->result();
+        $classList = $this->db->select('id, class')->from($this->classModel)->where('deleted', 0)->get()->result();
+        
         $data = array(
             'permission' => $permission,
             'viewPath' => $this->viewPath,
             'listJs' => add_Js($listJs),
-            'listCss' => add_css($listCss),
+        		'listCss' => add_css($listCss),
+        		'subjectList' => $subjectList,
+        		'classList' => $classList,
             'item' => $item
         );
         $this->parser->parse($this->viewPath."edit", $data);
@@ -243,6 +258,173 @@ class ManageDocument extends MY_Controller {
         exit;
     }
 
+    /**
+     * Detail
+     */
+    public function detail($id='') {
+    	$permission = $this->check_permission($this->class, 'execute');
+    	$method = $this->input->method();
+    	
+    	$maskID = $id;
+    	if(!empty($id)){
+    		$id = $this->unmask($id);
+    	}
+    	
+    	$this->layout->set_layout_dir('views/admin/layouts/');
+    	$this->layout->set_layout('default');
+    	
+    	$listCss = array(
+    			'static/default/admin/template/plugins/toastr/toastr.min.css',
+    			'static/default/admin/template/plugins/jstree/style.min.css',
+    			'static/default/template/datepicker/css/bootstrap-datetimepicker.min.css',
+    			'static/default/admin/template/plugins/datatables/media/css/dataTables.bootstrap.min.css',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/css/buttons.dataTables.min.css',
+    			'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.css',
+    	);
+    	$listJs = array(
+    			'static/default/admin/template/plugins/toastr/toastr.min.js',
+    			'static/default/admin/template/plugins/jstree/jstree.min.js',
+    			'static/default/template/mask/jquery.mask.js',
+    			'static/default/template/datepicker/js/moment.js',
+    			'static/default/template/datepicker/js/moment-with-locales.js',
+    			'static/default/template/datepicker/js/bootstrap-datetimepicker.min.js',
+    			'static/default/admin/template/plugins/bootpag/jquery.bootpag.min.js',
+    			'static/default/admin/template/plugins/blockui/jquery.blockUI.js',
+    			'static/default/admin/template/plugins/datatables/media/js/jquery.dataTables.min.js',
+    			'static/default/admin/template/plugins/datatables/media/js/dataTables.bootstrap.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/responsive/js/dataTables.responsive.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/dataTables.buttons.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/buttons.flash.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/jszip.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/pdfmake.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/vfs_fonts.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/buttons.html5.min.js',
+    			'static/default/admin/template/plugins/datatables/extensions/buttons/js/buttons.print.min.js',
+    			'static/default/admin/template/plugins/confirmation/bootstrap-confirmation.min.js',
+    			'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
+    			
+    			'static/default/admin/template/plugins/PDFObject/pdfobject.js',
+    	);
+    	
+    	// get document detail
+    	
+    	$docStorage = new stdClass();
+    	$specList = $this->db->select('id, parent, title text, path sketch')
+    	->from($this->docDetailModel)
+    	->where('deleted', 0)
+    	->where('document', $id)
+    	->order_by('sort', 'asc')
+    	->get()->result()
+    	;
+    	$specs = array();
+    	if(count($specList)){
+    		foreach($specList as $index=>$item){
+    			if($item->sketch){
+    				$item->icon = 'glyphicon glyphicon-file';
+    			} else{
+    				$item->icon = 'glyphicon glyphicon-hdd';
+    			}
+    			if($item->sketch){
+    				$docStorage->{$item->id} = $item->sketch;
+    			}
+    			if(empty($item->parent)){ $item->parent = '#'; }
+    			array_push($specs, $item);
+    		}
+    	}
+    	
+    	$data = array(
+    			'permission' => $permission,
+    			'viewPath' => $this->viewPath,
+    			'listJs' => add_Js($listJs),
+    			'listCss' => add_css($listCss),
+    			'specList' => json_encode($specs),
+    			'docStorage' => json_encode($docStorage),
+    			'document' => $id
+    	);
+    	$this->parser->parse($this->viewPath."detail", $data);
+    }
+    
+    /**
+     * Apply change documentation
+     */
+    public function apply() {
+    	$this->check_permission($this->class, 'view');
+    	$this->layout->disable_layout();
+    	
+    	$maps = $this->input->post('specs', false);
+    	$document = $this->input->post('doc', false);
+    	//        print_r($maps); exit;
+    	if($maps){
+    		$query = '';
+    		foreach($maps as $item){
+    			$item = (object)$item;
+    			$item->parent = is_numeric($item->parent) ? $item->parent : 0;
+    			$query .= ($query != '' ? ',' : '')."(NOW(), NOW(), '".$item->id."', '".$document."', '".$item->parent."',
+                    '".addslashes($item->spec)."',  '".$item->sort."', '".$item->sketch."')";
+    		}
+    		if(!empty($query)){
+    			$query = "INSERT INTO ".$this->docDetailModel." (`created`, `modified`, `id`, `document`, `parent`, `title`, `sort`, `path`) VALUES ".$query."
+                    ON DUPLICATE KEY UPDATE `title` = VALUES(title), `sort` = VALUES(sort),
+						`path` = VALUES(path), `deleted` = VALUES(deleted), modified = VALUES(modified);
+                ";
+    			
+    			$this->db->trans_begin();
+//     			$this->db->where('id >', 0, false)->update($this->specModel, array('deleted' => 1));
+    			$this->db->query($query);
+    			
+    			if ($this->db->trans_status() === TRUE){
+    				$this->db->trans_commit();
+    				$res = 1;
+    			} else {
+    				$this->db->trans_rollback();
+    				$res = 0;
+    			}
+    			echo $res; exit;
+    		}
+    	}
+    	echo 0; exit;
+    }
+    
+    /**
+     * Upload document file
+     */
+    public function upload() {
+    	$this->check_permission($this->class, 'execute');
+    	$this->layout->disable_layout();
+    	
+    	$response = new stdClass();
+    	$response->url = null;
+    	$response->result = 0;
+    	
+    	$document = $this->input->post('doc', false);
+    	
+//     	if (!file_exists(MEDIAPATH.'uploads/documents/')) {
+// //     		echo MEDIAPATH.'uploads/document/'.$document;
+//     		mkdir('/media/uploads/documents/'.$document, 0777, 'R');
+//     	}
+    	
+    	if(isset($_FILES["upfiles"])){
+//     		$path_parts = pathinfo($_FILES["upfiles"]["name"]);
+//     		$extension = $path_parts['extension'];
+    		$fileLocation = $_FILES['upfiles']['tmp_name'];
+    		$file = time().$_FILES["upfiles"]["name"];//.'.'.$extension;
+    		$file = urlencode($file);
+    		if (move_uploaded_file($fileLocation, MEDIAPATH.'uploads/documents/'.$file)) {
+//     			$url = base_url().'media/uploads/documents/'.$file;
+    			$url = base_url().'api/cdn/metadata/'.$file;
+    			$pullClass = array(
+    					'tmp_photo' => $url,
+    					'modified' => date('Y-m-d H:i:s', time())
+    			);
+    			//             $response->url = $url.'?t='.time();
+    			$response->url = $url;
+    			$response->result = 1;
+    			//     		$response->result = $this->db->where('id', $id)->update($this->sliderModel, $pullClass);
+    		}
+    	}
+    	echo json_encode($response); exit;
+    }
+    
     /**
      * Prepair data for view
      */
@@ -342,14 +524,16 @@ class ManageDocument extends MY_Controller {
      * Modify data
      */
     private function modify(){
-        $id = $this->input->post('id', false);
-        $class = $this->input->post('class', false);
-        if(!empty($class)){
+    	$id = $this->input->post('id', false);
+    	$subject = $this->input->post('subject', false);
+    	$class = $this->input->post('class', false);
+    	if(!empty($subject) && !empty($class)){
         	$ip = $this->getClientIP();
             $query = "
-                INSERT INTO `".$this->classModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `class`) 
-                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($class)."')
-                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `class` = VALUES(class), `deleted` = VALUES(deleted), modified = VALUES(modified)
+                INSERT INTO `".$this->documentModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `subject`, `class`) 
+                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($subject)."', '".addslashes($class)."')
+                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `subject` = VALUES(subject), `class` = VALUES(class),
+					 `deleted` = VALUES(deleted), modified = VALUES(modified)
                 ;
             ";
             $result = $this->db->query($query);

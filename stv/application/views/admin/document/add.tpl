@@ -28,8 +28,23 @@
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="brand">{lang('class')} (*)</label>
-                                <input id="class" type="text" class="form-control params" notnull value="" >
+                                <label for="subject">{lang('subject')} (*)</label>
+                                <select id="subject" class="form-control selectpicker params" notnull>
+                                    <option value=""></option>
+                                    {foreach from=$subjectList key=i item=item}
+                                        <option value="{$item->id}">{$item->subject}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="class">{lang('class')} (*)</label>
+                                <select id="class" class="form-control selectpicker params" notnull>
+                                    <option value=""></option>
+                                    {foreach from=$classList key=i item=item}
+                                        <option value="{$item->id}">{$item->class}</option>
+                                    {/foreach}
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -69,7 +84,7 @@
     }
 
     function funcCancel() {
-        window.location = '{base_url()}admin/manage-class/view';
+        window.location = '{base_url()}admin/manage-document/view';
     }
 
     function initLoading(element){
@@ -98,6 +113,15 @@
     }
     
     $(document).ready(function() {
-        
+    	$('#subject').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
+    	$('#class').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
     });
 </script>
