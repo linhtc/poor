@@ -1,3 +1,29 @@
+<?php /* Smarty version 3.1.27, created on 2017-08-09 22:34:18
+         compiled from "/var/www/html/poor/stv/application/views/frontend/layouts/default.tpl" */ ?>
+<?php
+/*%%SmartyHeaderCode:94340827598b2b7a54ef31_36234342%%*/
+if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'c6b9959769f658ddaf3b7257bbc63f341a6387e5' => 
+    array (
+      0 => '/var/www/html/poor/stv/application/views/frontend/layouts/default.tpl',
+      1 => 1502292855,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '94340827598b2b7a54ef31_36234342',
+  'has_nocache_code' => false,
+  'version' => '3.1.27',
+  'unifunc' => 'content_598b2b7a5556b5_52969068',
+),false);
+/*/%%SmartyHeaderCode%%*/
+if ($_valid && !is_callable('content_598b2b7a5556b5_52969068')) {
+function content_598b2b7a5556b5_52969068 ($_smarty_tpl) {
+
+$_smarty_tpl->properties['nocache_hash'] = '94340827598b2b7a54ef31_36234342';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +33,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <?php echo '<script'; ?>
+ src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"><?php echo '</script'; ?>
+>
+  <?php echo '<script'; ?>
+ src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
   <style>
     /* Remove the navbar's default rounded borders and increase the bottom margin */ 
     
@@ -46,7 +76,8 @@
     
     .header-right{
     	/* background-image: url("https://api.asm.skype.com/v1/objects/0-sa-d1-9a1613aefa56b9676b8a8dcccd8a673f/views/imgpsh_fullsize"); */
-    	background-image: url("{base_url()}media/images/header/teacher.png");
+    	background-image: url("<?php echo base_url();?>
+media/images/header/teacher.png");
     	background-size: contain;
     	background-repeat: no-repeat;
     	background-position: center;
@@ -255,3 +286,6 @@
 
 </body>
 </html>
+<?php }
+}
+?>
