@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2017-08-10 19:55:38
+<?php /* Smarty version 3.1.27, created on 2017-08-10 20:15:36
          compiled from "/var/www/html/poor/cnc/application/views/frontend/layouts/default.tpl" */ ?>
 <?php
-/*%%SmartyHeaderCode:561997266598c57ca2c9b89_17123142%%*/
+/*%%SmartyHeaderCode:701733818598c5c782fee81_65362864%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,11 +9,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '7283e8c78d47d823f1e0e04b238a92a647876a5e' => 
     array (
       0 => '/var/www/html/poor/cnc/application/views/frontend/layouts/default.tpl',
-      1 => 1502369699,
+      1 => 1502370933,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '561997266598c57ca2c9b89_17123142',
+  'nocache_hash' => '701733818598c5c782fee81_65362864',
   'variables' => 
   array (
     'title' => 0,
@@ -24,13 +24,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_598c57ca2d2a65_57305682',
+  'unifunc' => 'content_598c5c78308ba8_22372929',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_598c57ca2d2a65_57305682')) {
-function content_598c57ca2d2a65_57305682 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_598c5c78308ba8_22372929')) {
+function content_598c5c78308ba8_22372929 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '561997266598c57ca2c9b89_17123142';
+$_smarty_tpl->properties['nocache_hash'] = '701733818598c5c782fee81_65362864';
 ?>
 <!DOCTYPE html>
 <html>
@@ -109,6 +109,7 @@ static/default/frontend/css/cnctech.css">
 	    
 	    <style type="text/css">
 	    #menu ul {
+    opacity: 0;
     margin: 0;
     padding: 0;
     right: 0px;
@@ -125,7 +126,6 @@ static/default/frontend/css/cnctech.css">
     transform-origin: 39px -10px;
     -webkit-transform: scale(1);
     transform: scale(1);
-    opacity: 1;
     -webkit-filter: none;
     -moz-filter: none;
     -ms-filter: none;
@@ -242,12 +242,15 @@ $( document ).ready(function() {
 	});
 
 	$menuElement
-	    .css("visibility", "hidden")
+	    .css({ "visibility": "hidden" })
 	    .position({
 	    my: "left top",
 	    at: "left bottom",
 	    of: $menuButton
 	});
+	setTimeout(function(){
+		$menuElement.css({ "opacity": 1 });;
+	}, 10);
 });
 <?php echo '</script'; ?>
 >

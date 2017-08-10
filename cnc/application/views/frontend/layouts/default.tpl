@@ -72,6 +72,7 @@
 	    
 	    <style type="text/css">
 	    #menu ul {
+    opacity: 0;
     margin: 0;
     padding: 0;
     right: 0px;
@@ -88,7 +89,6 @@
     transform-origin: 39px -10px;
     -webkit-transform: scale(1);
     transform: scale(1);
-    opacity: 1;
     -webkit-filter: none;
     -moz-filter: none;
     -ms-filter: none;
@@ -190,12 +190,15 @@ $( document ).ready(function() {
 	});
 
 	$menuElement
-	    .css("visibility", "hidden")
+	    .css({ "visibility": "hidden" })
 	    .position({
 	    my: "left top",
 	    at: "left bottom",
 	    of: $menuButton
 	});
+	setTimeout(function(){
+		$menuElement.css({ "opacity": 1 });;
+	}, 10);
 });
 </script>
 
