@@ -56,7 +56,7 @@ class Home extends MY_Controller {
             'permission' => $permission,
             'listJs' => add_Js($listJs),
             'listCss' => add_css($listCss),
-        		'title' => 'CNC Technology Solutions',
+        		'title' => 'CNC PRECISION',
         		'uuid' => 'home',
         		'list' => $list
         );

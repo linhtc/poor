@@ -50,7 +50,7 @@ class Contact extends MY_Controller {
             'permission' => $permission,
             'listJs' => add_Js($listJs),
         		'listCss' => add_css($listCss),
-        		'title' => 'Contact - CNC Technology Solutions',
+        		'title' => 'Contact - CNC PRECISION',
         		'uuid' => 'contact',
         		'list' => $list
         );

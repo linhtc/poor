@@ -1,6 +1,6 @@
 <header>
 	<logo>
-		<a href="index"><img src="http://www.cnctech.com.vn/images/logo.png"></a>
+		<a href="{base_url()}home"><img src="{base_url()}/media/images/logo/a.png"></a>
 		<div id="vertical-line"></div>
 		<span id="slogan">technology for life</span>
 	</logo>

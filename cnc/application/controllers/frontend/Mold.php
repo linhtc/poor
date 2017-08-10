@@ -56,7 +56,7 @@ class Mold extends MY_Controller {
             'permission' => $permission,
             'listJs' => add_Js($listJs),
             'listCss' => add_css($listCss),
-        		'title' => 'Mold &amp; Part - CNC Technology Solutions',
+        		'title' => 'Mold &amp; Part - CNC PRECISION',
         		'uuid' => 'mold',
         		'list' => $list
         );

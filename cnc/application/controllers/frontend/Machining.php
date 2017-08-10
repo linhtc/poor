@@ -56,7 +56,7 @@ class Machining extends MY_Controller {
             'permission' => $permission,
             'listJs' => add_Js($listJs),
         		'listCss' => add_css($listCss),
-        		'title' => 'Precision Machining - CNC Technology Solutions',
+        		'title' => 'Precision Machining - CNC PRECISION',
         		'uuid' => 'machining',
         		'list' => $list
         );
