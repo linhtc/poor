@@ -69,6 +69,54 @@
 	    	}
 	    </style>
 	    {/if}
+	    
+	    <style type="text/css">
+	    #menu ul {
+    margin: 0;
+    padding: 0;
+    right: 0px;
+    top: 22px;
+    position: absolute;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 8px 13px rgba(0,0,0,.36), 0 0 0 1px rgba(0,0,0,.06);
+    width: 123px;
+    box-sizing: border-box;
+    -webkit-transition: all .3s cubic-bezier(.34,1.61,.7,1);
+    transition: all .3s cubic-bezier(.34,1.61,.7,1);
+    -webkit-transform-origin: 39px -10px;
+    transform-origin: 39px -10px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    -o-filter: none;
+    filter: none;
+}
+
+#menu ul:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 37px;
+    height: 12px;
+    top: -12px;
+    right: 4px;
+    background-image: url({base_url()}media/images/arrow_top.png);
+}
+
+#menu ul li {
+    display: block;
+    margin: 0;
+        padding: 5px 0px;
+}
+
+#menu ul li a{
+    padding: 15px;
+}
+	    </style>
 	</head>
 	<body id="{$uuid}">
 		{include file='frontend/layouts/menu.tpl'}
@@ -124,5 +172,34 @@
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/0.1.9/slideout.min.js"></script>
 	    
 		{$listJs}
+		
+		
+<script>
+$( document ).ready(function() {
+	var $menuButton = $("#to-language");
+	var $menuElement = $("#menuElement");
+
+	$menuButton
+	    .click(function (event) {
+	    $(document).one("click", function () {
+	        $menuElement.css("visibility", "hidden");
+	    });
+
+	    $menuElement.css("visibility", "visible");
+	    event.stopPropagation();
+	});
+
+	$menuElement
+	    .css("visibility", "hidden")
+	    .position({
+	    my: "left top",
+	    at: "left bottom",
+	    of: $menuButton
+	});
+});
+</script>
+
 	</body>
 </html>
+
+

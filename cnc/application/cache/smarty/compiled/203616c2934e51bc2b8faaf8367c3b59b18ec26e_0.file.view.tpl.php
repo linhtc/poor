@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2017-08-10 16:49:42
-         compiled from "/var/www/html/cnc/application/views/frontend/home/view.tpl" */ ?>
+<?php /* Smarty version 3.1.27, created on 2017-08-10 19:55:38
+         compiled from "/var/www/html/poor/cnc/application/views/frontend/home/view.tpl" */ ?>
 <?php
-/*%%SmartyHeaderCode:513582525598c2c36ab6190_04965594%%*/
+/*%%SmartyHeaderCode:1050768527598c57ca2c10a3_57335119%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '079a8915f350ab4b69c54b8bc2c9ea8d81b8d54e' => 
+    '203616c2934e51bc2b8faaf8367c3b59b18ec26e' => 
     array (
-      0 => '/var/www/html/cnc/application/views/frontend/home/view.tpl',
-      1 => 1502338768,
+      0 => '/var/www/html/poor/cnc/application/views/frontend/home/view.tpl',
+      1 => 1502202474,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '513582525598c2c36ab6190_04965594',
+  'nocache_hash' => '1050768527598c57ca2c10a3_57335119',
   'variables' => 
   array (
     'list' => 0,
@@ -21,13 +21,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_598c2c36abb396_84577903',
+  'unifunc' => 'content_598c57ca2c7510_70206592',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_598c2c36abb396_84577903')) {
-function content_598c2c36abb396_84577903 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_598c57ca2c7510_70206592')) {
+function content_598c57ca2c7510_70206592 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '513582525598c2c36ab6190_04965594';
+$_smarty_tpl->properties['nocache_hash'] = '1050768527598c57ca2c10a3_57335119';
 ?>
 <div id="slides">
 	<ul class="slides-container">

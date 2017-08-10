@@ -1,19 +1,19 @@
-<?php /* Smarty version 3.1.27, created on 2017-08-10 16:49:42
-         compiled from "/var/www/html/cnc/application/views/frontend/layouts/default.tpl" */ ?>
+<?php /* Smarty version 3.1.27, created on 2017-08-10 19:55:38
+         compiled from "/var/www/html/poor/cnc/application/views/frontend/layouts/default.tpl" */ ?>
 <?php
-/*%%SmartyHeaderCode:1139155414598c2c36abd5b6_27189135%%*/
+/*%%SmartyHeaderCode:561997266598c57ca2c9b89_17123142%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    'd61bf702263b06d5a551e15e3bb768ba86c6563b' => 
+    '7283e8c78d47d823f1e0e04b238a92a647876a5e' => 
     array (
-      0 => '/var/www/html/cnc/application/views/frontend/layouts/default.tpl',
-      1 => 1502358580,
+      0 => '/var/www/html/poor/cnc/application/views/frontend/layouts/default.tpl',
+      1 => 1502369699,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1139155414598c2c36abd5b6_27189135',
+  'nocache_hash' => '561997266598c57ca2c9b89_17123142',
   'variables' => 
   array (
     'title' => 0,
@@ -24,13 +24,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_598c2c36ac3e81_74133448',
+  'unifunc' => 'content_598c57ca2d2a65_57305682',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_598c2c36ac3e81_74133448')) {
-function content_598c2c36ac3e81_74133448 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_598c57ca2d2a65_57305682')) {
+function content_598c57ca2d2a65_57305682 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '1139155414598c2c36abd5b6_27189135';
+$_smarty_tpl->properties['nocache_hash'] = '561997266598c57ca2c9b89_17123142';
 ?>
 <!DOCTYPE html>
 <html>
@@ -106,6 +106,55 @@ static/default/frontend/css/cnctech.css">
 	    	}
 	    </style>
 	    <?php }?>
+	    
+	    <style type="text/css">
+	    #menu ul {
+    margin: 0;
+    padding: 0;
+    right: 0px;
+    top: 22px;
+    position: absolute;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 8px 13px rgba(0,0,0,.36), 0 0 0 1px rgba(0,0,0,.06);
+    width: 123px;
+    box-sizing: border-box;
+    -webkit-transition: all .3s cubic-bezier(.34,1.61,.7,1);
+    transition: all .3s cubic-bezier(.34,1.61,.7,1);
+    -webkit-transform-origin: 39px -10px;
+    transform-origin: 39px -10px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    -webkit-filter: none;
+    -moz-filter: none;
+    -ms-filter: none;
+    -o-filter: none;
+    filter: none;
+}
+
+#menu ul:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 37px;
+    height: 12px;
+    top: -12px;
+    right: 4px;
+    background-image: url(<?php echo base_url();?>
+media/images/arrow_top.png);
+}
+
+#menu ul li {
+    display: block;
+    margin: 0;
+        padding: 5px 0px;
+}
+
+#menu ul li a{
+    padding: 15px;
+}
+	    </style>
 	</head>
 	<body id="<?php echo $_smarty_tpl->tpl_vars['uuid']->value;?>
 ">
@@ -157,6 +206,9 @@ static/default/frontend/css/cnctech.css">
 			<?php }?>
 			
 			<div class="clear-fix"></div>
+			
+			
+			
 			<?php echo $_smarty_tpl->getSubTemplate ('frontend/layouts/footer.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0);
 ?>
 
@@ -171,8 +223,39 @@ static/default/frontend/css/cnctech.css">
 	    
 		<?php echo $_smarty_tpl->tpl_vars['listJs']->value;?>
 
+		
+		
+<?php echo '<script'; ?>
+>
+$( document ).ready(function() {
+	var $menuButton = $("#to-language");
+	var $menuElement = $("#menuElement");
+
+	$menuButton
+	    .click(function (event) {
+	    $(document).one("click", function () {
+	        $menuElement.css("visibility", "hidden");
+	    });
+
+	    $menuElement.css("visibility", "visible");
+	    event.stopPropagation();
+	});
+
+	$menuElement
+	    .css("visibility", "hidden")
+	    .position({
+	    my: "left top",
+	    at: "left bottom",
+	    of: $menuButton
+	});
+});
+<?php echo '</script'; ?>
+>
+
 	</body>
 </html>
+
+
 <?php }
 }
 ?>
