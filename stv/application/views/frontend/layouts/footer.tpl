@@ -1,1 +1,3 @@
-<footer><span> © 2008 - <script>document.write(new Date().getFullYear())</script></span> CNCTECH</footer>
+<footer class="container-fluid text-center">
+  <p>Copyright © 2017 Gia sư Sáng Tạo Việt.</p>
+</footer>

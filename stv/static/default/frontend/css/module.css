@@ -87,7 +87,7 @@
 .breadcrumb{
 	background: url(../images/bg_menu.png) repeat;
     position: relative;
-	padding:5px 10px;
+	padding:5px 15px;
 	float:left;
 	width:100%;
 	margin-bottom:5px;
@@ -98,16 +98,16 @@
 }
 
 .breadcrumb li a{
-	color:#FFF;
+	color:#3a3636;
 	font-weight:bold;
 }
 .breadcrumb>li+li:before {
     content: "\f105";
 	font-family:'FontAwesome';
-	color:#FFF;
+	color:#3a3636;
 }
 .breadcrumb li a:hover{
-	color:#FF0;
+	color:#3a3636;
 }
 
 

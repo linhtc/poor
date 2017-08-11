@@ -726,7 +726,7 @@ header img{
 		color: #FFF;
 		position: relative;
 		font-weight: bold;
-		font-size: 13px;
+		font-size: 12px;
 		text-transform:uppercase;
 		transition:all 0.5s ease;
 		-webkit-transition:all 0.5s ease;
@@ -1409,7 +1409,7 @@ nav.nav{ background: #014279; }
 .btn-primary{ background: #007700; }
 .btn-info{ background: #007700; }
 footer{ background: #01315A; border-top: solid 5px #014279; }
-.breadcrumb{ background: #007700 !important; }
+.breadcrumb{ background: transparent !important; }
 .info.lop-da-giao{ color: red; font-size: 14px; }
 .info.dang-can-gia-su{ color: green; font-size: 14px; }
 nav.nav .dropdown-menu{ background: #01315A; }
