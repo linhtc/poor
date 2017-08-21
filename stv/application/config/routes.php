@@ -57,10 +57,8 @@ $route['404_override'] = 'errors/show_404';
 $route['translate_uri_dashes'] = FALSE;
 
 // frontend
-$route['home'] = 'frontend/home/view';
-$route['machining'] = 'frontend/machining/view';
-$route['mold'] = 'frontend/mold/view';
-$route['contact'] = 'frontend/contact/view';
+$route['trang-chu'] = 'frontend/home/view';
+$route['dang-ky-lam-gia-su'] = 'frontend/register/teacher';
 
 // backend
 $route['admin'] = 'admin/users/login';

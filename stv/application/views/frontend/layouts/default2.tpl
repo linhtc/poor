@@ -71,7 +71,6 @@
     text-align: center;
     float:none;
 }
-
 .navbar-default .nav{
     width: 100%;
 }
@@ -90,7 +89,6 @@
 	margin:0 5px;
 	vertical-align:middle;
 }
-
 .navbar-default .navbar-nav > li > a {
     color: #FFF;
 }
@@ -157,7 +155,7 @@
           color: #333;
     }
 }
-  </style>
+</style>
 </head>
 <body>
 

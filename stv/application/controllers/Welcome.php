@@ -31,7 +31,7 @@ class Welcome extends MY_Controller {
     public function index() {
 //     	echo 1; exit;
 //         redirect(base_url() . "admin");
-       redirect(base_url() . "home");
+       redirect(base_url() . "trang-chu");
 //         $this->layout->set_layout_dir('views/frontend/layouts/');
 //         $this->layout->set_layout('default');
     }
