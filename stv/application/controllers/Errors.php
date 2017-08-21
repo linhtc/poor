@@ -15,12 +15,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Errors extends MY_Controller {
 
-    function __construct() {
-        parent::__construct();
+    public function show_404() {
+        $this->checkPermission();
+        $this->layout->set_layout_dir('views/admin/layouts/');
+        $this->layout->set_layout('default');
+        $data = array();
+        $this->parser->parse("admin/errors/show_404", $data);
     }
     
-    public function show_404() {
-        debug('show_404');
+    public function show_500() {
+        $this->checkPermission();
+        $this->layout->set_layout_dir('views/admin/layouts/');
+        $this->layout->set_layout('default');
+        $data = array();
+        $this->parser->parse("admin/errors/show_500", $data);
     }
 
 }

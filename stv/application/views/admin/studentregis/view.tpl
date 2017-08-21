@@ -22,7 +22,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {lang('document')}
+        {lang('regis_student')}
         {*<small>Danh sách</small>*}
     </h1>
     <ol class="breadcrumb">
@@ -57,9 +57,15 @@
                             <tr>
                                 <th col-id="id">{lang('id')}</th>
                                 <th col-id="dt">{lang('last_update')}</th>
-                                <th col-id="ip">{lang('ipaddress')}</th>
-                                <th col-id="su" col-sel="1" col-multi="multiple">{lang('subject')}</th>
+                                <th col-id="fu">{lang('fullname')}</th>
+                                <th col-id="ad">{lang('address')}</th>
+                                <th col-id="ph">{lang('phone')}</th>
+                                <th col-id="em">{lang('email')}</th>
                                 <th col-id="cl" col-sel="1" col-multi="multiple">{lang('class')}</th>
+                                <th col-id="su">{lang('subject')}</th>
+                                <th col-id="re" col-sel="1" col-multi="single">{lang('requirement')}</th>
+                                <th col-id="no">{lang('note')}</th>
+                                <th col-id="st" col-sel="1" col-multi="multiple">{lang('status')}</th>
                                 <th col-id="action">{lang('action')}</th>
                             </tr>
                             </tfoot>
@@ -107,8 +113,9 @@
 
 <script>
     var selMap = {
-        cl: '{$classSel}',
-        su: '{$subjectSel}'
+        re: '{$requirement}',
+        cl: '{$class}',
+        st: '{$status}'
     };
     var areYouSure = '{lang('are_u_sure')}';
     var okButton = '{lang('ok')}';

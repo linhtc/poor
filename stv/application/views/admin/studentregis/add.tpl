@@ -28,16 +28,11 @@
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="slModule">ID</label>
-                                <input type="text" class="form-control params" id="id" value="{$item->id}" readonly notnull >
-                            </div>
-                            
-                            <div class="form-group">
                                 <label for="subject">{lang('subject')} (*)</label>
                                 <select id="subject" class="form-control selectpicker params" notnull>
                                     <option value=""></option>
-                                    {foreach from=$subjectList key=i item=itemp}
-                                        <option value="{$itemp->id}">{$itemp->subject}</option>
+                                    {foreach from=$subjectList key=i item=item}
+                                        <option value="{$item->id}">{$item->subject}</option>
                                     {/foreach}
                                 </select>
                             </div>
@@ -46,8 +41,8 @@
                                 <label for="class">{lang('class')} (*)</label>
                                 <select id="class" class="form-control selectpicker params" notnull>
                                     <option value=""></option>
-                                    {foreach from=$classList key=i item=itemp}
-                                        <option value="{$itemp->id}">{$itemp->class}</option>
+                                    {foreach from=$classList key=i item=item}
+                                        <option value="{$item->id}">{$item->class}</option>
                                     {/foreach}
                                 </select>
                             </div>
@@ -70,9 +65,6 @@
     var langComplete = '{lang('complete')}';
     var langChooseOne = '{lang('choose_one_option')}';
 
-    var itemSubject = '{$item->subject}';
-    var itemClass = '{$item->class}';
-
     function funcSubmit() {
         var params = getParams();
         if(params === false){
@@ -80,7 +72,7 @@
             return false;
         }
         initLoading('.box-info');
-        $.post('edit', params, function (data) {
+        $.post('add', params, function (data) {
             destroyLoading('.box-info');
             toastr.remove();
             if (data == 1) {
@@ -131,7 +123,5 @@
             liveSearch: true,
             noneSelectedText: langChooseOne
         }).on('hidden.bs.select', function (e){ });
-    	$('#subject').selectpicker('val', itemSubject);
-    	$('#class').selectpicker('val', itemClass);
     });
 </script>

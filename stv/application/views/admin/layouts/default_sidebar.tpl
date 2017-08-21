@@ -31,10 +31,8 @@
         points_detail: 'points_view',
         points_edit: 'points_view',
         languages_edit: 'languages_view',
-        'manage-home_edit': 'manage-home_view',
-        'manage-machining_edit': 'manage-machining_view',
-        'manage-mold_edit': 'manage-mold_view',
-        'manage-contact_edit': 'manage-contact_view'
+        'manage-document_detail': 'manage-document_view',
+        'manage-document_edit': 'manage-document_view'
     };
     try{
         var langKey = '{$smarty.session.lang_key}';

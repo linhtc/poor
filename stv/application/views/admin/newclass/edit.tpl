@@ -28,11 +28,6 @@
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="slModule">ID</label>
-                                <input type="text" class="form-control params" id="id" value="{$item->id}" readonly notnull >
-                            </div>
-                            
-                            <div class="form-group">
                                 <label for="subject">{lang('subject')} (*)</label>
                                 <select id="subject" class="form-control selectpicker params" notnull>
                                     <option value=""></option>
