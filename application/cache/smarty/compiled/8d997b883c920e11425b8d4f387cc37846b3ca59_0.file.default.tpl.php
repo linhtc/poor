@@ -1,3 +1,29 @@
+<?php /* Smarty version 3.1.27, created on 2017-08-21 21:54:02
+         compiled from "/var/www/html/poor/application/views/frontend/layouts/default.tpl" */ ?>
+<?php
+/*%%SmartyHeaderCode:728917280599af40abb4015_88537003%%*/
+if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '8d997b883c920e11425b8d4f387cc37846b3ca59' => 
+    array (
+      0 => '/var/www/html/poor/application/views/frontend/layouts/default.tpl',
+      1 => 1503327239,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '728917280599af40abb4015_88537003',
+  'has_nocache_code' => false,
+  'version' => '3.1.27',
+  'unifunc' => 'content_599af40abb5ae4_61391667',
+),false);
+/*/%%SmartyHeaderCode%%*/
+if ($_valid && !is_callable('content_599af40abb5ae4_61391667')) {
+function content_599af40abb5ae4_61391667 ($_smarty_tpl) {
+
+$_smarty_tpl->properties['nocache_hash'] = '728917280599af40abb4015_88537003';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="vi">
 <head>
@@ -9,28 +35,48 @@
     <link href="http://giasunhanvan.vn/templates/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
 	<link href="http://giasunhanvan.vn/templates/extra/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/js/detect.js"></script>
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/bootstrap/js/bootstrap.min.js"></script>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/js/jquery-1.11.0.min.js"><?php echo '</script'; ?>
+>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/js/detect.js"><?php echo '</script'; ?>
+>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/bootstrap/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
 	<link href="http://giasunhanvan.vn/templates/fonts/font-awesome/font-awesome.min.css" rel="stylesheet" />
 	<link href="http://giasunhanvan.vn/templates/fonts/font_entypo/entypo.css" rel="stylesheet" />
 	
 	<link href="http://giasunhanvan.vn/templates/extra/owlcarousel/owl.carousel.css" rel="stylesheet" />
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/owlcarousel/owl.carousel.js"></script>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/owlcarousel/owl.carousel.js"><?php echo '</script'; ?>
+>
 	
 	<link href="http://giasunhanvan.vn/templates/extra/wow/animate.css" rel="stylesheet" />
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/wow/wow.min.js"></script>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/wow/wow.min.js"><?php echo '</script'; ?>
+>
 	
 	<link href="http://giasunhanvan.vn/templates/extra/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/bootstrap-datepicker/bootstrap-datepicker.js"><?php echo '</script'; ?>
+>
 	
 	<link href="http://giasunhanvan.vn/templates/extra/select2/select2.css" rel="stylesheet" />
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/select2/select2.full.js"></script>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/select2/select2.full.js"><?php echo '</script'; ?>
+>
 	
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/jcarousellite/jquery.jcarousellite.js"></script>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/jcarousellite/jquery.jcarousellite.js"><?php echo '</script'; ?>
+>
 	
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/bootstrap-filestyle/bootstrap-filestyle.js"></script>
-	<script type="text/javascript" src="http://giasunhanvan.vn/templates/extra/validate/jquery.validate.min.js"></script>	
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/bootstrap-filestyle/bootstrap-filestyle.js"><?php echo '</script'; ?>
+>
+	<?php echo '<script'; ?>
+ type="text/javascript" src="http://giasunhanvan.vn/templates/extra/validate/jquery.validate.min.js"><?php echo '</script'; ?>
+>	
 
 	
 	<link href="http://giasunhanvan.vn/templates/css/style.css" rel="stylesheet" />
@@ -263,3 +309,6 @@
 </body>
 </html>
 
+<?php }
+}
+?>

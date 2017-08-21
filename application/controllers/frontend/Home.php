@@ -44,21 +44,11 @@ class Home extends MY_Controller {
         		'static/default/frontend/js/jquery.superslides.min.js',
         		'static/default/frontend/js/cnctech.min.js',
         );
-
-        $list = $this->db->select('id, class, photo, caption')
-        ->from($this->sliderModel)
-        ->where('class', $this->folder)->where('deleted', 0)
-        ->get()
-        ->result_array()
-        ;
         
         $data = array(
             'permission' => $permission,
             'listJs' => add_Js($listJs),
-            'listCss' => add_css($listCss),
-        		'title' => 'CNC Technology Solutions',
-        		'uuid' => 'home',
-        		'list' => $list
+            'listCss' => add_css($listCss)
         );
 
         $this->parser->parse($this->viewPath."view", $data);
