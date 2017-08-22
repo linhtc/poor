@@ -1331,11 +1331,9 @@ body{
 
 
 footer {
-	margin-top:5px;
 	color:#FFF;
 	overflow:hidden;
 	background:#118ec2;
-	border-top: solid 5px #037db0;
 	padding:25px 0;
 }
 footer .link{
@@ -1402,7 +1400,7 @@ nav.nav{ background: #014279; }
 .item-style1 .act .btn-register{ background: #007700;  }
 .btn-primary{ background: #007700; }
 .btn-info{ background: #007700; }
-footer{ background: #01315A; border-top: solid 5px #01315A; }
+footer{ background: #01315A; }
 .breadcrumb{ background: #007700 !important; }
 .info.lop-da-giao{ color: red; font-size: 14px; }
 .info.dang-can-gia-su{ color: green; font-size: 14px; }
