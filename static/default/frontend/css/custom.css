@@ -1,0 +1,13 @@
+header{
+	background-color: #01315A;
+	color: #fff;
+}
+
+header .jumbotron{
+	background-color: #01315A;
+	margin: 0px;
+}
+
+nav a{
+	cursor: pointer;
+}
