@@ -20,8 +20,8 @@
 		<div class="clearfix"></div>
 		<section class="include">
 			<ul class="breadcrumb" style="display: none;">
-				<li><a href="http://giasunhanvan.vn/" title="Trang chủ">Trang chủ</a></li>
-				<li><a href="http://giasunhanvan.vn/lien-he.html" title="Liên hệ">Liên hệ</a></li>
+				<li><a href="{base_url()}" title="Trang chủ">Trang chủ</a></li>
+				<li><a href="{base_url()}lien-he" title="Liên hệ">Liên hệ</a></li>
 			</ul>
 			<div class="clearfix"></div>
 			<div class="body">

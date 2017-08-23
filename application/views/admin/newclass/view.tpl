@@ -22,7 +22,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {lang('document')}
+        {lang('new_class')}
         {*<small>Danh sách</small>*}
     </h1>
     <ol class="breadcrumb">
@@ -57,15 +57,15 @@
                             <tr>
                                 <th col-id="id">{lang('id')}</th>
                                 <th col-id="dt">{lang('last_update')}</th>
-                                <th col-id="fu">{lang('fullname')}</th>
-                                <th col-id="ad">{lang('address')}</th>
-                                <th col-id="ph">{lang('phone')}</th>
-                                <th col-id="em">{lang('email')}</th>
                                 <th col-id="cl">{lang('class')}</th>
                                 <th col-id="su">{lang('subject')}</th>
+                                <th col-id="str">{lang('street')}</th>
+                                <th col-id="di">{lang('district')}</th>
+                                <th col-id="tpw">{lang('times_per_week')}</th>
+                                <th col-id="wt">{lang('work_time')}</th>
+                                <th col-id="sa">{lang('salary')}</th>
                                 <th col-id="re">{lang('requirement')}</th>
-                                <th col-id="no">{lang('note')}</th>
-                                <th col-id="st">{lang('status')}</th>
+                                <th col-id="sta" col-sel="1" col-multi="single">{lang('status')}</th>
                                 <th col-id="action">{lang('action')}</th>
                             </tr>
                             </tfoot>
@@ -113,8 +113,7 @@
 
 <script>
     var selMap = {
-        b: '{$brand}',
-        pm: '{$pm}'
+        sta: '{$doneSel}'
     };
     var areYouSure = '{lang('are_u_sure')}';
     var okButton = '{lang('ok')}';

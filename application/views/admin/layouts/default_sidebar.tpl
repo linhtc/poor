@@ -38,7 +38,7 @@
         var langKey = '{$smarty.session.lang_key}';
         var currPath = window.location.pathname;
         var realTitle = '';
-        currPath = currPath.replace('/cnc-precision', '');
+        currPath = currPath.replace('/elearning', '');
         currPath = currPath.replace('/'+langKey+'/admin/', '');
         currPath = currPath.replace('/admin/', '');
         currPath = currPath.replace('/', '_');

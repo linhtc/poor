@@ -20,7 +20,7 @@ class ManageNewClass extends MY_Controller {
     	parent::__construct();
     	$this->class = strtolower(preg_replace('/(?<!^)([A-Z])/', '-\\1', get_class()));
         $this->numRows = 10;
-        $this->classModel = 'e_new_classes';
+        $this->newclassModel= 'e_new_classes';
         $this->viewPath = 'admin/newclass/';
     }
 
@@ -64,11 +64,16 @@ class ManageNewClass extends MY_Controller {
 
             'static/default/admin/template/js/opt.min.js',
         );
+        
+        $stHtml = '<option value="">'.lang('all_status').'</option><option value="0">'.lang('class_waiting').'
+			</option><option value="1">'.lang('class_success').'</option>'
+		;
 
         $data = array(
             'permission' => $permission,
             'listJs' => add_Js($listJs),
             'listCss' => add_css($listCss),
+        	'doneSel' => $stHtml
         );
 
         $this->parser->parse($this->viewPath."view", $data);
@@ -172,7 +177,7 @@ class ManageNewClass extends MY_Controller {
         $id = $this->input->post('id', true);
         if(!empty($id)){
             $pullClass = array('deleted' => 1);
-            $result = $this->db->where('id', $id)->update($this->classModel, $pullClass);
+            $result = $this->db->where('id', $id)->update($this->newclassModel, $pullClass);
             echo $result; exit;
         }
         echo 0; exit;
@@ -185,14 +190,15 @@ class ManageNewClass extends MY_Controller {
         $permission = $this->check_permission($this->class, 'view');
         $this->layout->disable_layout();
 
-        $sortMaps = array('id', 'modified', 'class', 'subject', 'address_street', 'address_district', 'times_of_week', 'work_time', 'salary', 'requirement');
+        $sortMaps = array('id', 'modified', 'class', 'subject', 'address_street', 'address_district', 'times_per_week', 'work_time', 'salary', 'requirement');
         $page = $this->input->post('page', true);
         $sort = $this->input->post('sort', true);
         $type = $this->input->post('type', true);
         $numRows = $this->input->post('auto', true);
         if(!empty($numRows) && $numRows > 10 && $numRows < 101){ $this->numRows = $numRows; }
         $start = ($page-1)*$this->numRows;
-        $query = "select `id`, `modified`, `ipaddress`, `class` from ".$this->classModel;
+        $query = "select `id`, `modified`, `ipaddress`, `class`, `subject`, `address_street`, `address_district`, `times_per_week`, 
+			`work_time`, `salary`, `requirement` from ".$this->newclassModel;
         $query .= $this->criteria();
         $num = $this->db->query($query)->num_rows();
         $query .= " order by `".(empty($sortMaps[$sort]) ? 'id' : $sortMaps[$sort]) ."` ".$type;
@@ -244,14 +250,22 @@ class ManageNewClass extends MY_Controller {
     private function criteria(){
     	$id = $this->input->get_post('id', true);
     	$time = $this->input->get_post('dt', true);
-        $ip = $this->input->get_post('ip', true);
-        $class = $this->input->get_post('cl', true);
+    	//         $ip = $this->input->get_post('ip', true);
+    	$class = $this->input->get_post('cl', true);
+    	$subject = $this->input->get_post('su', true);
+    	$street = $this->input->get_post('str', true);
+    	$district = $this->input->get_post('di', true);
+    	$timesPerWeek = $this->input->get_post('tpw', true);
+    	$workTime = $this->input->get_post('wt', true);
+    	$salary = $this->input->get_post('sa', true);
+    	$requirement = $this->input->get_post('re', true);
+    	$status = $this->input->get_post('sta', true);
         $modified = explode(' - ', $time);
         $to = null; $from = null;
 
         $criteria = " where `deleted` = 0 ";
         if(!empty($id)){
-        	$criteria .= " AND `id` = '".addslashes($class)."' ";
+        	$criteria .= " AND `id` = '".addslashes($id)."' ";
         }
         if(is_array($modified)){
             if(count($modified) === 2){
@@ -270,11 +284,32 @@ class ManageNewClass extends MY_Controller {
             $to = date('Y-m-d', strtotime($to));
             $criteria .= " AND `modified` <= '$to 23:59:59' ";
         }
-        if(!empty($ip)){
-        	$criteria .= " AND `ipaddress` like '%".addslashes($ip)."%' ";
-        }
         if(!empty($class)){
         	$criteria .= " AND `class` like '%".addslashes($class)."%' ";
+        }
+        if(!empty($subject)){
+        	$criteria .= " AND `subject` like '%".addslashes($subject)."%' ";
+        }
+        if(!empty($street)){
+        	$criteria .= " AND `address_street` like '%".addslashes($street)."%' ";
+        }
+        if(!empty($district)){
+        	$criteria .= " AND `address_district` like '%".addslashes($district)."%' ";
+        }
+        if(!empty($timesPerWeek)){
+        	$criteria .= " AND `times_per_week` like '%".addslashes($timesPerWeek)."%' ";
+        }
+        if(!empty($workTime)){
+        	$criteria .= " AND `work_time` like '%".addslashes($workTime)."%' ";
+        }
+        if(!empty($salary)){
+        	$criteria .= " AND `salary` like '%".addslashes($salary)."%' ";
+        }
+        if(!empty($requirement)){
+        	$criteria .= " AND `requirement` like '%".addslashes($requirement)."%' ";
+        }
+        if(!empty($status)){
+        	$criteria .= " AND `done` = '".addslashes($status)."' ";
         }
         return $criteria;
     }

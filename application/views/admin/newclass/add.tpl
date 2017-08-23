@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -23,36 +21,81 @@
                         <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
-
                 <div class="box-body pad">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <form>
-                            <div class="form-group">
-                                <label for="subject">{lang('subject')} (*)</label>
-                                <select id="subject" class="form-control selectpicker params" notnull>
-                                    <option value=""></option>
-                                    {foreach from=$subjectList key=i item=item}
-                                        <option value="{$item->id}">{$item->subject}</option>
-                                    {/foreach}
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="class">{lang('class')} (*)</label>
-                                <select id="class" class="form-control selectpicker params" notnull>
-                                    <option value=""></option>
-                                    {foreach from=$classList key=i item=item}
-                                        <option value="{$item->id}">{$item->class}</option>
-                                    {/foreach}
-                                </select>
-                            </div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="class">{lang('class')} (*)</label>
+		                                <select id="class" class="form-control selectpicker params" notnull>
+		                                    <option value=""></option>
+		                                    {foreach from=$classList key=i item=item}
+		                                        <option value="{$item->class}">{$item->class}</option>
+		                                    {/foreach}
+		                                </select>
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="subject">{lang('subject')} (*)</label>
+		                                <select id="subject" class="form-control selectpicker params" notnull>
+		                                    <option value=""></option>
+		                                    {foreach from=$subjectList key=i item=item}
+		                                        <option value="{$item->subject}">{$item->subject}</option>
+		                                    {/foreach}
+		                                </select>
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="address_street">{lang('street')} (*)</label>
+		                                <input id="address_street" type="text" class="form-control params" notnull value="" >
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="district">{lang('district')} (*)</label>
+		                                <input id="address_district" type="text" class="form-control params" notnull value="" >
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="times_per_week">{lang('times_per_week')} (*)</label>
+		                                <input id="times_per_week" type="text" class="form-control params" notnull value="" >
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="work_time">{lang('work_time')} (*)</label>
+		                                <input id="work_time" type="text" class="form-control params" notnull value="" >
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="salary">{lang('salary')} (*)</label>
+		                                <input id="salary" type="text" class="form-control params" notnull value="" >
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="requirement">{lang('requirement')} (*)</label>
+		                                <input id="requirement" type="text" class="form-control params" notnull value="" >
+		                            </div>
+                        		</div>
+                        	</div>
                         </form>
                     </div>
                 </div>
-
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-success" onclick="funcSubmit();">{lang('save')}</button>
+                <div class="box-footer text-right">
                     <button type="submit" class="btn btn-danger" onclick="funcCancel();">{lang('back')}</button>
+                    <button type="submit" class="btn btn-success" onclick="funcSubmit();">{lang('save')}</button>
                 </div>
             </div>
         </div>
