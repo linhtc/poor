@@ -157,8 +157,6 @@ Hello you! We're VAS of Mobiistar Corp.
         <!-- Main -->
         <script src="{base_url()}static/default/admin/js/main.js" type="text/javascript"></script>
 
-        <script src="{base_url()}static/default/template/main/js/google.js"></script>
-
         <script src="{base_url()}static/default/admin/js/scrolltop.js"></script>
 
     </body>

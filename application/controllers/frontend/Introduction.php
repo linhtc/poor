@@ -11,7 +11,7 @@
  *
  * @author CPU10890-local
  */
-class Home extends MY_Controller {
+class Introduction extends MY_Controller {
 
 	private $class;
 	private $folder;
@@ -22,10 +22,10 @@ class Home extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->class = strtolower(get_class());
-        $this->viewPath = 'frontend/home/';
+        $this->viewPath = 'frontend/introduction/';
         $this->folder = 'home';
         $this->pageModel = 'e_pages';
-        $this->pageType = 'home';
+        $this->pageType = 'introduction';
     }
     
     /**
@@ -40,7 +40,11 @@ class Home extends MY_Controller {
         		
         );
         $listJs = array(
-        		
+        		'static/default/frontend/js/jquery.easing.min.js',
+        		'static/default/frontend/js/jquery.animate-enhanced.min.js',
+        		'static/default/frontend/js/jquery.hammer.min.js',
+        		'static/default/frontend/js/jquery.superslides.min.js',
+        		'static/default/frontend/js/cnctech.min.js',
         );
         
         $item = $this->db->select('id, page_content')

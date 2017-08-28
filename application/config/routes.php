@@ -58,9 +58,11 @@ $route['translate_uri_dashes'] = FALSE;
 
 // frontend
 $route['home'] = 'frontend/home/view';
-$route['machining'] = 'frontend/machining/view';
-$route['mold'] = 'frontend/mold/view';
-$route['contact'] = 'frontend/contact/view';
+$route['gioi-thieu'] = 'frontend/introduction/view';
+
+$route['tai-lieu'] = 'frontend/document/view';
+$route['tai-lieu/(:any)'] = 'frontend/document/subject/$1';
+$route['tai-lieu/(:any)/(:any)'] = 'frontend/document/subject/$1/$2';
 
 
 // backend
@@ -91,9 +93,15 @@ $route['admin/manage-new-class/(:any)/(:any)'] = "admin/ManageNewClass/$1/$2";
 $route['en/admin/manage-new-class/(:any)'] = "admin/ManageNewClass/$1";
 $route['en/admin/manage-new-class/(:any)/(:any)'] = "admin/ManageNewClass/$1/$2";
 
-$route['tai-lieu'] = 'frontend/document/view';
-$route['tai-lieu/(:any)'] = 'frontend/document/subject/$1';
-$route['tai-lieu/(:any)/(:any)'] = 'frontend/document/subject/$1/$2';
+$route['admin/manage-home/(:any)'] = "admin/ManageHome/$1";
+$route['admin/manage-home/(:any)/(:any)'] = "admin/ManageHome/$1/$2";
+$route['en/admin/manage-home/(:any)'] = "admin/ManageHome/$1";
+$route['en/admin/manage-home/(:any)/(:any)'] = "admin/ManageHome/$1/$2";
+
+$route['admin/manage-introduction/(:any)'] = "admin/ManageIntroduction/$1";
+$route['admin/manage-introduction/(:any)/(:any)'] = "admin/ManageIntroduction/$1/$2";
+$route['en/admin/manage-introduction/(:any)'] = "admin/ManageIntroduction/$1";
+$route['en/admin/manage-introduction/(:any)/(:any)'] = "admin/ManageIntroduction/$1/$2";
 
 // default
 $route['(\w{2})/(.*)'] = '$2';

@@ -10,8 +10,8 @@
 	</div>
 	<div class="collapse navbar-collapse navbar-responsive-collapse">
 		<ul class="nav navbar-nav">
-			<li class=""><a href="{base_url()}">Trang chủ</a></li>
-			<li class=""><a href="{base_url()}gioi-thieu">Giới thiệu</a></li>
+			<li class="{if $uuid eq 'home'}active{/if}"><a href="{base_url()}">Trang chủ</a></li>
+			<li class="{if $uuid eq 'introduction'}active{/if}"><a href="{base_url()}gioi-thieu">Giới thiệu</a></li>
 			<li class=""><a href="{base_url()}tin-tuc">Tin tức</a></li>
 			<li class="dropdown">
 				<a href="{base_url()}tai-lieu">Tài liệu</a>

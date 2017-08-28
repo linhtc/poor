@@ -11,6 +11,7 @@
 	<link href="{base_url()}static/default/frontend/css/style.css" rel="stylesheet" />
 	<link href="{base_url()}static/default/frontend/css/responsive.css" rel="stylesheet" />
 	<link href="{base_url()}static/default/frontend/css/custom.css" rel="stylesheet" />
+	{$listCss}
 </head>
 
 <body class="module">
@@ -25,13 +26,16 @@
 			</ul>
 			<div class="clearfix"></div>
 			<div class="body">
-				{$content}
+				<div style="padding: 20px;">
+					{$content}
+				</div>
 			</div>
 			<!-- Content must start with row class -->
 		</section>
 		<div class="clearfix"></div>
 		{include file='frontend/layouts/footer.tpl'}
 	</div>
+	{$listJs}
 </body>
 </html>
 

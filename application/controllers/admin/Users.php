@@ -47,8 +47,8 @@ class Users extends MY_Controller {
             $administrator = $this->session->userdata('administrator');
             $permission = $this->session->userdata('user_group_permission');
             $language = $this->session->userdata('user_lang');
-            if($administrator || !empty($permission['manage-document']['view'])){
-                redirect(base_url() .$language. "admin/manage-document/view");
+            if($administrator || !empty($permission['manage-home']['view'])){
+                redirect(base_url() .$language. "admin/manage-home/view");
             } else{
                 redirect(base_url() .$language. "admin/profiles/view");
             }
@@ -155,8 +155,8 @@ class Users extends MY_Controller {
                                 } else{
                                     $administrator = $this->session->userdata('administrator');
                                     $permission = $this->session->userdata('user_group_permission');
-                                    if($administrator || !empty($permission['manage-document']['view'])){
-                                        redirect(base_url() .$language. "admin/manage-document/view");
+                                    if($administrator || !empty($permission['manage-home']['view'])){
+                                        redirect(base_url() .$language. "admin/manage-home/view");
                                     } else{
                                         redirect(base_url() .$language. "admin/profiles/view");
                                     }
