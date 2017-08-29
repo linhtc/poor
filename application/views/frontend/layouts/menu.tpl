@@ -18,30 +18,11 @@
 				<!-- <a href="{base_url()}tai-lieu" class="dropdown-toggle" data-toggle="dropdown">Tài liệu</a> -->
 				<i class="btn-dropdown dropdown-toggle fa fa-chevron-down" data-toggle="dropdown"></i>
 				<ul class="dropdown-menu fadeInUp animate1">
-					<li class="dropdown-submenu">
-						<a href="{base_url()}tai-lieu/mon-toan">Tài liệu môn toán</a>
-						<ul class="dropdown-menu fadeInRight animate1">
-							<li><a href="{base_url()}tai-lieu/mon-toan/lop-1">Tài liệu toán lớp 1</a></li>
-							<li><a href="{base_url()}tai-lieu/mon-toan/lop-2">Tài liệu toán lớp 2</a></li>
-							<li><a href="{base_url()}tai-lieu/mon-toan/lop-3">Tài liệu toán lớp 3</a></li>
-						</ul> 
+					{foreach from=$smarty.session.subject_menu key=ksub item=isub}
+					<li class="">
+						<a href="{base_url()}tai-lieu/{$isub->friendly}">{$isub->subject}</a>
 					</li>
-					<li class="dropdown-submenu">
-						<a href="{base_url()}tai-lieu/mon-van">Tài liệu môn văn</a>
-						<ul class="dropdown-menu fadeInRight animate1">
-							<li><a href="{base_url()}tai-lieu/mon-van/lop-1">Tài liệu văn lớp 1</a></li>
-							<li><a href="{base_url()}tai-lieu/mon-van/lop-2">Tài liệu văn lớp 2</a></li>
-							<li><a href="{base_url()}tai-lieu/mon-van/lop-3">Tài liệu văn lớp 3</a></li>
-						</ul> 
-					</li>
-					<li class="dropdown-submenu">
-						<a href="{base_url()}tai-lieu/mon-van">Tài liệu môn anh</a>
-						<ul class="dropdown-menu fadeInRight animate1">
-							<li><a href="{base_url()}tai-lieu/mon-anh/lop-1">Tài liệu anh lớp 1</a></li>
-							<li><a href="{base_url()}tai-lieu/mon-anh/lop-2">Tài liệu anh lớp 2</a></li>
-							<li><a href="{base_url()}tai-lieu/mon-anh/lop-3">Tài liệu anh lớp 3</a></li>
-						</ul> 
-					</li>
+					{/foreach}
 				</ul>
 			</li>
 			<li class="dropdown">
@@ -90,7 +71,7 @@
 				</ul>
 			</li>
 			<li class=""><a href="{base_url()}tuyen-dung">Tuyển dụng</a></li>
-			<li class=""><a href="{base_url()}lien-he">Liên hệ</a></li>
+			<li class="{if $uuid eq 'contact'}active{/if}"><a href="{base_url()}lien-he">Liên hệ</a></li>
 		</ul>
 	</div>  
 </nav>

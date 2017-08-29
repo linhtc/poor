@@ -32,3 +32,8 @@ nav a{
     text-align: left;
     box-sizing: border-box;
 }
+
+iframe {
+	width: 100% !important;
+	min-height: 500px;
+}

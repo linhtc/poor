@@ -59,10 +59,11 @@ $route['translate_uri_dashes'] = FALSE;
 // frontend
 $route['home'] = 'frontend/home/view';
 $route['gioi-thieu'] = 'frontend/introduction/view';
+$route['lien-he'] = 'frontend/contact/view';
 
 $route['tai-lieu'] = 'frontend/document/view';
-$route['tai-lieu/(:any)'] = 'frontend/document/subject/$1';
-$route['tai-lieu/(:any)/(:any)'] = 'frontend/document/subject/$1/$2';
+$route['tai-lieu/(:any)'] = 'frontend/document/view/$1';
+$route['tai-lieu/(:any)/(:any)'] = 'frontend/document/view/$1/$2';
 
 
 // backend
@@ -102,6 +103,11 @@ $route['admin/manage-introduction/(:any)'] = "admin/ManageIntroduction/$1";
 $route['admin/manage-introduction/(:any)/(:any)'] = "admin/ManageIntroduction/$1/$2";
 $route['en/admin/manage-introduction/(:any)'] = "admin/ManageIntroduction/$1";
 $route['en/admin/manage-introduction/(:any)/(:any)'] = "admin/ManageIntroduction/$1/$2";
+
+$route['admin/manage-contact/(:any)'] = "admin/ManageContact/$1";
+$route['admin/manage-contact/(:any)/(:any)'] = "admin/ManageContact/$1/$2";
+$route['en/admin/manage-contact/(:any)'] = "admin/ManageContact/$1";
+$route['en/admin/manage-contact/(:any)/(:any)'] = "admin/ManageContact/$1/$2";
 
 // default
 $route['(\w{2})/(.*)'] = '$2';

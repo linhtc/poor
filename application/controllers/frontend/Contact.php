@@ -16,21 +16,30 @@ class Contact extends MY_Controller {
 	private $class;
 	private $viewPath;
 	private $contactModel;
+	private $subjectModel;
+	private $pageType;
 	
     function __construct() {
         parent::__construct();
         $this->class = strtolower(get_class());
         $this->viewPath = 'frontend/contact/';
-        $this->contactModel = 'cnc_contacts';
+        $this->contactModel = 'e_contacts';
+        $this->subjectModel = 'e_subjects';
+        $this->pageType = 'contact';
     }
 
     /**
      * View
      */
     public function view() {
-        $permission = 1;//$this->check_permission($this->class, 'view');
         $this->layout->set_layout_dir('views/frontend/layouts/');
         $this->layout->set_layout('default');
+        
+        /////////////////////////////
+        $subjects = $this->db->select('id, subject, friendly')->from($this->subjectModel)->where('deleted', 0)->where('parent', 0)->get()->result();
+        $docMenu = $this->session->userdata('subject_menu');
+        $this->session->set_userdata('subject_menu', $subjects);
+        /////////////////////////////
 
         $listCss = array(
         		
@@ -39,20 +48,18 @@ class Contact extends MY_Controller {
         		'static/default/frontend/js/cnctech.min.js',
         );
 
-        $list = $this->db->select('id, company, address, phone, fax, email, embed, place')
+        $item = $this->db->select('id, phone, email, address, maps')
         ->from($this->contactModel)
-        ->where('deleted', 0)
         ->get()
-        ->result_array()
+        ->row()
         ;
         
         $data = array(
-            'permission' => $permission,
             'listJs' => add_Js($listJs),
         		'listCss' => add_css($listCss),
-        		'title' => 'Contact - CNC Technology Solutions',
         		'uuid' => 'contact',
-        		'list' => $list
+        		'contact' => $item,
+        		'uuid' => $this->pageType
         );
 
         $this->parser->parse($this->viewPath."view", $data);

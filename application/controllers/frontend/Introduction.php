@@ -18,6 +18,7 @@ class Introduction extends MY_Controller {
 	private $viewPath;
 	private $pageModel;
 	private $pageType;
+	private $subjectModel;
 	
     function __construct() {
         parent::__construct();
@@ -26,6 +27,7 @@ class Introduction extends MY_Controller {
         $this->folder = 'home';
         $this->pageModel = 'e_pages';
         $this->pageType = 'introduction';
+        $this->subjectModel = 'e_subjects';
     }
     
     /**
@@ -35,6 +37,12 @@ class Introduction extends MY_Controller {
         $permission = 1;//$this->check_permission($this->class, 'view');
         $this->layout->set_layout_dir('views/frontend/layouts/');
         $this->layout->set_layout('default');
+        
+        /////////////////////////////
+        $subjects = $this->db->select('id, subject, friendly')->from($this->subjectModel)->where('deleted', 0)->where('parent', 0)->get()->result();
+        $docMenu = $this->session->userdata('subject_menu');
+        $this->session->set_userdata('subject_menu', $subjects);
+        /////////////////////////////
 
         $listCss = array(
         		

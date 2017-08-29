@@ -17,14 +17,15 @@ class Home extends MY_Controller {
 	private $folder;
 	private $viewPath;
 	private $pageModel;
+	private $subjectModel;
 	private $pageType;
 	
     function __construct() {
         parent::__construct();
         $this->class = strtolower(get_class());
         $this->viewPath = 'frontend/home/';
-        $this->folder = 'home';
         $this->pageModel = 'e_pages';
+        $this->subjectModel = 'e_subjects';
         $this->pageType = 'home';
     }
     
@@ -42,6 +43,22 @@ class Home extends MY_Controller {
         $listJs = array(
         		
         );
+        
+        $subjects = $this->db->select('id, subject, friendly')
+        ->from($this->subjectModel)
+        ->where('deleted', 0)
+        ->where('parent', 0)
+        ->get()
+        ->result()
+        ;
+        
+        $docMenu = $this->session->userdata('subject_menu');
+        if(empty($docMenu)){
+        	$this->session->set_userdata('subject_menu', $subjects);
+        	redirect(base_url());
+        }
+        
+        $this->session->set_userdata('subject_menu', $subjects);
         
         $item = $this->db->select('id, page_content')
         ->from($this->pageModel)
