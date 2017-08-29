@@ -61,6 +61,13 @@ class Document extends MY_Controller {
     	$documents = array();
     	
     	if(!empty($class) && !empty($subject)){
+    		$documents = $this->db->select('class, (select c.class from '.$this->classModel.' c where c.id = d.class and c.deleted = 0) classname')
+    		->from($this->documentModel.' d')
+    		->where('deleted', 0)
+    		->group_by('d.class')
+    		->get()->result_array();
+    		$data['documents'] = $documents;
+    		
     		$this->parser->parse($this->viewPath."view", $data);
     	} elseif(!empty($subject)){
     		$subject = $this->db->select('id, subject, friendly')
@@ -81,10 +88,17 @@ class Document extends MY_Controller {
     		->where('deleted', 0)->where_in('subject', $subarray)
     		->group_by('d.class')
     		->get()->result_array();
+    		$data['subject'] = $subject;
     		$data['documents'] = $documents;
     		
     		$this->parser->parse($this->viewPath."class", $data);
     	} else{
+    		$documents = $this->db->select('class, (select c.class from '.$this->classModel.' c where c.id = d.class and c.deleted = 0) classname')
+    		->from($this->documentModel.' d')
+    		->where('deleted', 0)
+    		->group_by('d.class')
+    		->get()->result_array();
+    		$data['documents'] = $documents;
     		$this->parser->parse($this->viewPath."view", $data);
     	}
     }

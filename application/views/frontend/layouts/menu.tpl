@@ -20,7 +20,7 @@
 				<ul class="dropdown-menu fadeInUp animate1">
 					{foreach from=$smarty.session.subject_menu key=ksub item=isub}
 					<li class="">
-						<a href="{base_url()}tai-lieu/{$isub->friendly}">{$isub->subject}</a>
+						<a href="{base_url()}tai-lieu/{$isub->friendly}">Tài liệu môn {$isub->subject}</a>
 					</li>
 					{/foreach}
 				</ul>

@@ -6,7 +6,20 @@ header{
 header .jumbotron{
 	background-color: #01315A;
 	margin: 0px;
+	padding-top: 15px;
+    padding-bottom: 15px;
 }
+
+header .jumbotron h5{
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+header .jumbotron h6{
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
 nav a{
 	cursor: pointer;
 }
@@ -37,3 +50,21 @@ iframe {
 	width: 100% !important;
 	min-height: 500px;
 }
+
+.body .panel-body {
+    padding: 0;
+}
+
+.body .list-group {
+    border: none;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+.body .list-group-item {
+    margin-bottom: 0px;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+}
+

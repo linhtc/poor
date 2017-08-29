@@ -45,7 +45,7 @@ class Contact extends MY_Controller {
         		
         );
         $listJs = array(
-        		'static/default/frontend/js/cnctech.min.js',
+        	
         );
 
         $item = $this->db->select('id, phone, email, address, maps')

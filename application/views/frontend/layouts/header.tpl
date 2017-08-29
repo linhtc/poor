@@ -4,17 +4,17 @@
 		<div class="jumbotron">
 			<div class="row">
 				<div class="col-md-3 text-left">
-					<img width="170" height="140" src="http://giasusangtaoviet.edu.vn/wp-content/uploads/2017/07/Logo-1-e1499270184520.png" />
+					<img width="100" height="100" src="http://giasusangtaoviet.edu.vn/wp-content/uploads/2017/07/Logo-1-e1499270184520.png" />
 				</div>
 				<div class="col-md-6 text-center">
-					<h2 style="margin-top: 5px;">GIA SƯ SÁNG TẠO VIỆT</h2>
-					<h4>Tri thức chắp cánh tương lai</h4>
+					<h3 style="margin-top: 0px;">GIA SƯ SÁNG TẠO VIỆT</h3>
+					<h5>Tri thức chắp cánh tương lai</h5>
 					<h6>0939.916.109 - 0974.438.816</h6>
 					<h6>giasusangtaovn@gmail.com</h6>
 					<h6>68/1 QL13 Hiệp Bình Chánh, Thủ Đức</h6>
 				</div>
 				<div class="col-md-3 text-right">	
-					<img width="170" height="140" src="{base_url()}media/images/right_header.jpg" />
+					<img width="100" height="100" src="{base_url()}media/images/right_header.jpg" />
 				</div>
 			</div>
   		</div>
