@@ -285,10 +285,14 @@ class ManageSubject extends MY_Controller {
         $subject= $this->input->post('subject', false);
         if(!empty($subject)){
         	$ip = $this->getClientIP();
+        	$friendly = $this->stripVN($subject);
+        	$friendly = preg_replace('/\s+/', '-', $friendly);
+        	$friendly = strtolower($friendly);
             $query = "
-                INSERT INTO `".$this->subjectModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `subject`) 
-                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($subject)."')
-                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `subject` = VALUES(subject), `deleted` = VALUES(deleted), modified = VALUES(modified)
+                INSERT INTO `".$this->subjectModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `subject`, `friendly`) 
+                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($subject)."', '".addslashes($friendly)."')
+                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `subject` = VALUES(subject), `friendly` = VALUES(friendly), 
+					`deleted` = VALUES(deleted), modified = VALUES(modified)
                 ;
             ";
             $result = $this->db->query($query);
