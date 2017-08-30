@@ -563,7 +563,7 @@ class ManageDocument extends MY_Controller {
     	$subject = $this->input->post('subject', false);
     	$class = $this->input->post('class', false);
     	if(!empty($subject) && !empty($class)){
-    		$item = $this->db->select('id')
+    		$item = $this->db->select('id, deleted')
     		->from($this->documentModel)
     		->where('subject', $subject)
     		->where('class', $class)

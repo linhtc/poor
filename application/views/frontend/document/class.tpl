@@ -9,7 +9,15 @@
 		    <h4 class="media-heading">{$item.classname}</h4>
 		    <p>
 		    	Tài liệu môn {$subject->subject} <br /> 
-		    	<small><a href="{base_url()}tai-lieu/{$subject->friendly}/{$item.classname}">Xem chi tiết...</a></small>
+		    	{if empty($item.subject)}
+		    	<small><a href="{base_url()}tai-lieu/{$subject->friendly}/{$item.friendly}">Xem chi tiết...</a></small>
+		    	{else}
+		    	<small>
+		    		{foreach from=$item.subjects key=ii item=iitem}
+		    		<a style="margin-right: 10px;" href="{base_url()}tai-lieu/{$subject->friendly}/{$item.friendly}/{$iitem.friendly}">{$iitem.subject}</a>
+		    		{/foreach}
+	    		</small>
+		    	{/if}
 	    	</p>
 		  </div>
 		</div>

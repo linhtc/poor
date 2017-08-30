@@ -6,10 +6,10 @@
 		    <img src="https://vcdn.tikicdn.com/cache/415x415/media/catalog/product/l/o/lop%205.u335.d20160423.t195730.jpg" class="media-object" style="width:60px">
 		  </div>
 		  <div class="media-body">
-		    <h4 class="media-heading">{$item.classname}</h4>
+		    <h4 class="media-heading">{$item.subject}</h4>
 		    <p>
-		    	Tài liệu môn {$subject->subject} <br /> 
-		    	<small><a href="{base_url()}tai-lieu/{$subject->friendly}/{$item.classname}">Xem chi tiết...</a></small>
+		    	Tài liệu môn {$item->subject} <br /> 
+		    	<small><a href="{base_url()}tai-lieu/{$item.friendly}">Xem chi tiết...</a></small>
 	    	</p>
 		  </div>
 		</div>

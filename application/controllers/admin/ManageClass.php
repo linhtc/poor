@@ -285,10 +285,14 @@ class ManageClass extends MY_Controller {
         $class = $this->input->post('class', false);
         if(!empty($class)){
         	$ip = $this->getClientIP();
+        	$friendly = $this->stripVN($class);
+        	$friendly = preg_replace('/\s+/', '-', $friendly);
+        	$friendly = strtolower($friendly);
             $query = "
-                INSERT INTO `".$this->classModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `class`) 
-                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($class)."')
-                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `class` = VALUES(class), `deleted` = VALUES(deleted), modified = VALUES(modified)
+                INSERT INTO `".$this->classModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `class`, `friendly`) 
+                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($class)."', '".addslashes($friendly)."')
+                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `class` = VALUES(class), `friendly` = VALUES(friendly),
+					`deleted` = VALUES(deleted), modified = VALUES(modified)
                 ;
             ";
             $result = $this->db->query($query);

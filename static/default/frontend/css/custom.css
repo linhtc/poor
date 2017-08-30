@@ -1,23 +1,13 @@
 header{
-	background-color: #01315A;
+	background-color: #3b5998;
 	color: #fff;
 }
 
 header .jumbotron{
-	background-color: #01315A;
+	background-color: #3b5998;
 	margin: 0px;
 	padding-top: 15px;
     padding-bottom: 15px;
-}
-
-header .jumbotron h5{
-	margin-top: 0px;
-	margin-bottom: 5px;
-}
-
-header .jumbotron h6{
-	margin-top: 0px;
-	margin-bottom: 5px;
 }
 
 nav a{
@@ -34,6 +24,10 @@ nav a{
     border-collapse: collapse;
     border-spacing: 0;
     margin: 15px 0;
+}
+
+.home-container img {
+    max-width: 100% !important;
 }
 
 .home-container table th, .home-container table td {
@@ -67,4 +61,28 @@ iframe {
     border-left: none;
     border-top: none;
 }
+
+.body .iframe-doc-contain {
+    position: fixed;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 98;
+}
+
+.body .iframe-doc-button {
+    position: fixed;
+    top: 5px;
+    right: 25px;
+    z-index: 99;
+    opacity: .7;
+}
+
+.body .iframe-doc {
+    display: none;
+}
+
+
+
 

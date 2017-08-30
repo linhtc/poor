@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2017-08-29 21:13:59
+<?php /* Smarty version 3.1.27, created on 2017-08-31 00:08:31
          compiled from "/var/www/html/poor/application/views/frontend/layouts/footer.tpl" */ ?>
 <?php
-/*%%SmartyHeaderCode:129387171759a576a7dd0423_46898554%%*/
+/*%%SmartyHeaderCode:15756865159a6f10fbb1086_10732030%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -13,16 +13,16 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '129387171759a576a7dd0423_46898554',
+  'nocache_hash' => '15756865159a6f10fbb1086_10732030',
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_59a576a7dd1241_60379823',
+  'unifunc' => 'content_59a6f10fbb1b07_87422177',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_59a576a7dd1241_60379823')) {
-function content_59a576a7dd1241_60379823 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_59a6f10fbb1b07_87422177')) {
+function content_59a6f10fbb1b07_87422177 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '129387171759a576a7dd0423_46898554';
+$_smarty_tpl->properties['nocache_hash'] = '15756865159a6f10fbb1086_10732030';
 ?>
 <footer>
 	<div class="row">

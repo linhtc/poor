@@ -64,6 +64,7 @@ $route['lien-he'] = 'frontend/contact/view';
 $route['tai-lieu'] = 'frontend/document/view';
 $route['tai-lieu/(:any)'] = 'frontend/document/view/$1';
 $route['tai-lieu/(:any)/(:any)'] = 'frontend/document/view/$1/$2';
+$route['tai-lieu/(:any)/(:any)/(:any)'] = 'frontend/document/view/$1/$2/$3';
 
 
 // backend

@@ -1,34 +1,35 @@
-<?php /* Smarty version 3.1.27, created on 2017-08-29 21:13:59
-         compiled from "/var/www/html/poor/application/views/frontend/document/view.tpl" */ ?>
+<?php /* Smarty version 3.1.27, created on 2017-08-31 00:08:31
+         compiled from "/var/www/html/poor/application/views/frontend/document/class.tpl" */ ?>
 <?php
-/*%%SmartyHeaderCode:56944211359a576a7d93934_24616635%%*/
+/*%%SmartyHeaderCode:206333411059a6f10fb67305_52939146%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '65b76c12e40c1f6aa6b71250a9eed467ec50106a' => 
+    '7cd2f4420eb577e50f49beceacdf5acd7d803f9d' => 
     array (
-      0 => '/var/www/html/poor/application/views/frontend/document/view.tpl',
-      1 => 1504015947,
+      0 => '/var/www/html/poor/application/views/frontend/document/class.tpl',
+      1 => 1504110543,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '56944211359a576a7d93934_24616635',
+  'nocache_hash' => '206333411059a6f10fb67305_52939146',
   'variables' => 
   array (
     'documents' => 0,
     'item' => 0,
     'subject' => 0,
+    'iitem' => 0,
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_59a576a7d9a7f5_31420396',
+  'unifunc' => 'content_59a6f10fb78cb6_77735050',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_59a576a7d9a7f5_31420396')) {
-function content_59a576a7d9a7f5_31420396 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_59a6f10fb78cb6_77735050')) {
+function content_59a6f10fb78cb6_77735050 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '56944211359a576a7d93934_24616635';
+$_smarty_tpl->properties['nocache_hash'] = '206333411059a6f10fb67305_52939146';
 ?>
 <div class="row" style="min-height: 300px;">
 	<div class="col-md-9">
@@ -54,10 +55,37 @@ $foreach_item_Sav = $_smarty_tpl->tpl_vars['item'];
 		    <p>
 		    	Tài liệu môn <?php echo $_smarty_tpl->tpl_vars['subject']->value->subject;?>
  <br /> 
+		    	<?php if (empty($_smarty_tpl->tpl_vars['item']->value['subject'])) {?>
 		    	<small><a href="<?php echo base_url();?>
 tai-lieu/<?php echo $_smarty_tpl->tpl_vars['subject']->value->friendly;?>
-/<?php echo $_smarty_tpl->tpl_vars['item']->value['classname'];?>
+/<?php echo $_smarty_tpl->tpl_vars['item']->value['friendly'];?>
 ">Xem chi tiết...</a></small>
+		    	<?php } else { ?>
+		    	<small>
+		    		<?php
+$_from = $_smarty_tpl->tpl_vars['item']->value['subjects'];
+if (!is_array($_from) && !is_object($_from)) {
+settype($_from, 'array');
+}
+$_smarty_tpl->tpl_vars['iitem'] = new Smarty_Variable;
+$_smarty_tpl->tpl_vars['iitem']->_loop = false;
+$_smarty_tpl->tpl_vars['ii'] = new Smarty_Variable;
+foreach ($_from as $_smarty_tpl->tpl_vars['ii']->value => $_smarty_tpl->tpl_vars['iitem']->value) {
+$_smarty_tpl->tpl_vars['iitem']->_loop = true;
+$foreach_iitem_Sav = $_smarty_tpl->tpl_vars['iitem'];
+?>
+		    		<a style="margin-right: 10px;" href="<?php echo base_url();?>
+tai-lieu/<?php echo $_smarty_tpl->tpl_vars['subject']->value->friendly;?>
+/<?php echo $_smarty_tpl->tpl_vars['item']->value['friendly'];?>
+/<?php echo $_smarty_tpl->tpl_vars['iitem']->value['friendly'];?>
+"><?php echo $_smarty_tpl->tpl_vars['iitem']->value['subject'];?>
+</a>
+		    		<?php
+$_smarty_tpl->tpl_vars['iitem'] = $foreach_iitem_Sav;
+}
+?>
+	    		</small>
+		    	<?php }?>
 	    	</p>
 		  </div>
 		</div>

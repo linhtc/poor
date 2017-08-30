@@ -91,7 +91,7 @@ class Cdn extends MY_Controller {
 				}, 1);
 			}</script>';
 			echo '<a id="next-button" href="'.$next.'" style="z-index:999999999; position:fixed; top:0; right:0; background: #ccc;width: 100%;text-align: center;height: 20px;vertical-align: middle;padding-top: 10px;padding-bottom: 10px;">NEXT</a>';
-        	echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="pointer-events: none; margin-top:0px;" onload="on_load(this)" >';
+        	echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="pointer-events: none; margin-top:0px;" onload="on_load(this)" ></iframe>';
         	
             exit;
         }
