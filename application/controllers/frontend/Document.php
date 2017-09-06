@@ -20,6 +20,7 @@ class Document extends MY_Controller {
 	private $documentModel;
 	private $docDetailModel;
 	private $classModel;
+	private $pageType;
 	
     function __construct() {
         parent::__construct();
@@ -29,6 +30,7 @@ class Document extends MY_Controller {
         $this->documentModel = 'e_documents';
         $this->docDetailModel = 'e_doc_details';
         $this->classModel = 'e_classes';
+        $this->pageType = 'document';
     }
     
     /**
@@ -38,14 +40,6 @@ class Document extends MY_Controller {
     	$permission = 1;//$this->check_permission($this->class, 'view');
     	$this->layout->set_layout_dir('views/frontend/layouts/');
     	$this->layout->set_layout('default');
-    	
-    	/////////////////////////////
-    	$subjects = $this->db->select('id, subject, friendly')
-    	->from($this->subjectModel)->where('deleted', 0)
-    	->where('parent', 0)->get()->result();
-    	$docMenu = $this->session->userdata('subject_menu');
-    	$this->session->set_userdata('subject_menu', $subjects);
-    	/////////////////////////////
     	
     	$listCss = array(
     			'static/default/admin/template/plugins/jstree/style.min.css'
@@ -60,7 +54,8 @@ class Document extends MY_Controller {
     			'listJs' => add_Js($listJs),
     			'listCss' => add_css($listCss),
     			'subject' => $subject,
-    			'class' => $class
+    			'class' => $class,
+    			'uuid' => $this->pageType
     	);
     	
     	$documents = array();
@@ -185,7 +180,8 @@ class Document extends MY_Controller {
     		'listJs' => add_Js($listJs),
     		'listCss' => add_css($listCss),
     		'subject' => $subject,
-    		'class' => $class
+    			'class' => $class,
+    			'uuid' => $this->pageType
     	);
     	
     	$this->parser->parse($this->viewPath."subject", $data);

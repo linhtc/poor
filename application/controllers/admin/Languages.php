@@ -18,7 +18,7 @@ class Languages extends MY_Controller {
         $this->class = strtolower(get_class());
         $this->numRows = 10;
         $this->brandModel = 'brands';
-        $this->langModel = 'languages';
+        $this->langModel = 'sys_languages';
         $this->viewPath = 'admin/languages/';
     }
 

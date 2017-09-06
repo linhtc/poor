@@ -10,9 +10,9 @@
 					<h5>Tri thức chắp cánh tương lai</h5>
 				</div>
 				<div class="col-md-4 text-center">
-					<h5 style="margin-top: 20px;">Điện thoại: 0939.916.109 - 0974.438.816</h5>
-					<h5>Email: giasusangtaovn@gmail.com</h5>
-					<h5>Địa chỉ: 68/1 QL13 Hiệp Bình Chánh, Thủ Đức</h5>
+					<h5 style="margin-top: 20px;">Điện thoại: {$smarty.session.contact->phone}</h5>
+					<h5>Email: {$smarty.session.contact->email}</h5>
+					<h5>Địa chỉ: {$smarty.session.contact->address}</h5>
 				</div>
 				<div class="col-md-2 text-right">	
 					<img width="100" height="100" src="{base_url()}media/images/right_header.jpg" />
@@ -32,9 +32,9 @@
 					<h5>Tri thức chắp cánh tương lai</h5>
 				</div>
 				<div class="col-md-5 text-center">
-					<h5 style="margin-top: 20px;">Điện thoại: 0939.916.109 - 0974.438.816</h5>
-					<h5>Email: giasusangtaovn@gmail.com</h5>
-					<h5>Địa chỉ: 68/1 QL13 Hiệp Bình Chánh, Thủ Đức</h5>
+					<h5 style="margin-top: 20px;">Điện thoại: {$smarty.session.contact->phone}</h5>
+					<h5>Email: {$smarty.session.contact->email}</h5>
+					<h5>Địa chỉ: {$smarty.session.contact->address}</h5>
 				</div>
 			</div>
   		</div>

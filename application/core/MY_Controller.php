@@ -29,6 +29,25 @@ class MY_Controller extends CI_Controller {
         $langKey = ($langKey == $config['language_abbr']) ? '' : $langKey.'/';
         $this->session->set_userdata('lang_prefix', $langKey);
         $this->session->set_userdata('user_menu', $this->gen_menu($this->session->userdata('user_mn_text'), $langKey));
+        
+        
+        // gen contact session
+        $contact = $this->db->select('id, phone, email, address, maps')
+        ->from('e_contacts')
+        ->get()
+        ->row()
+        ;
+        $this->session->set_userdata('contact', $contact);
+        
+        // gen menu session
+        $subjects = $this->db->select('id, subject, friendly')
+        ->from('e_subjects')
+        ->where('deleted', 0)
+        ->where('parent', 0)
+        ->get()
+        ->result()
+        ;
+        $this->session->set_userdata('subject_menu', $subjects);
     }
     public function checkPermission($permission = 'r') {
         $is_sign_in = $this->checkSignIn();

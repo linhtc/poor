@@ -11,27 +11,30 @@
  *
  * @author CPU10890-local
  */
-class Contact extends MY_Controller {
+class Fee extends MY_Controller {
 
 	private $class;
+	private $folder;
 	private $viewPath;
-	private $contactModel;
-	private $subjectModel;
+	private $pageModel;
 	private $pageType;
+	private $subjectModel;
 	
     function __construct() {
         parent::__construct();
         $this->class = strtolower(get_class());
-        $this->viewPath = 'frontend/contact/';
-        $this->contactModel = 'e_contacts';
+        $this->viewPath = 'frontend/fee/';
+        $this->folder = 'fee';
+        $this->pageModel = 'e_pages';
+        $this->pageType = 'fee';
         $this->subjectModel = 'e_subjects';
-        $this->pageType = 'contact';
     }
-
+    
     /**
      * View
      */
     public function view() {
+        $permission = 1;//$this->check_permission($this->class, 'view');
         $this->layout->set_layout_dir('views/frontend/layouts/');
         $this->layout->set_layout('default');
 
@@ -39,13 +42,25 @@ class Contact extends MY_Controller {
         		
         );
         $listJs = array(
-        	
+        		'static/default/frontend/js/jquery.easing.min.js',
+        		'static/default/frontend/js/jquery.animate-enhanced.min.js',
+        		'static/default/frontend/js/jquery.hammer.min.js',
+        		'static/default/frontend/js/jquery.superslides.min.js',
+        		'static/default/frontend/js/cnctech.min.js',
         );
         
+        $item = $this->db->select('id, page_content')
+        ->from($this->pageModel)
+        ->where('page_type', $this->pageType)
+        ->get()
+        ->row()
+        ;
+        
         $data = array(
+            'permission' => $permission,
             'listJs' => add_Js($listJs),
         		'listCss' => add_css($listCss),
-        		'uuid' => 'contact',
+        		'item' => $item,
         		'uuid' => $this->pageType
         );
 

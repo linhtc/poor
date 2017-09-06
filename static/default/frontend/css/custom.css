@@ -10,7 +10,7 @@ header .jumbotron{
     padding-bottom: 15px;
 }
 
-nav a{
+a{
 	cursor: pointer;
 }
 .body .row{
@@ -81,6 +81,14 @@ iframe {
 
 .body .iframe-doc {
     display: none;
+}
+
+.body .news-image {
+	height: 150px;
+	width: 200px;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 

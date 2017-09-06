@@ -37,7 +37,7 @@ class Crontabs extends MY_Controller {
         $this->crawlerModel = 'crawlers';
         $this->rateModel = 'rates';
         $this->pointModel = 'points';
-        $this->langModel = 'languages';
+        $this->langModel = 'sys_languages';
         $this->ticketNum = 3; /* Moi lan share se co 3 luot lucky */
     }
 

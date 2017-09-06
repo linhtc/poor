@@ -59,13 +59,19 @@ $route['translate_uri_dashes'] = FALSE;
 // frontend
 $route['home'] = 'frontend/home/view';
 $route['gioi-thieu'] = 'frontend/introduction/view';
-$route['lien-he'] = 'frontend/contact/view';
+$route['tin-tuc'] = 'frontend/news/view';
+$route['tin-tuc/(:any)'] = 'frontend/news/view/$1';
 
 $route['tai-lieu'] = 'frontend/document/view';
 $route['tai-lieu/(:any)'] = 'frontend/document/view/$1';
 $route['tai-lieu/(:any)/(:any)'] = 'frontend/document/view/$1/$2';
 $route['tai-lieu/(:any)/(:any)/(:any)'] = 'frontend/document/view/$1/$2/$3';
 
+$route['hoc-phi'] = 'frontend/fee/view';
+$route['muc-phi-nhan-lop'] = 'frontend/MinFee/view';
+$route['tuyen-dung'] = 'frontend/recruit/view';
+$route['tuyen-dung/(:any)'] = 'frontend/recruit/view/$1';
+$route['lien-he'] = 'frontend/contact/view';
 
 // backend
 $route['admin'] = 'admin/users/login';

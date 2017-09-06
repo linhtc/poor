@@ -44,22 +44,6 @@ class Home extends MY_Controller {
         		
         );
         
-        $subjects = $this->db->select('id, subject, friendly')
-        ->from($this->subjectModel)
-        ->where('deleted', 0)
-        ->where('parent', 0)
-        ->get()
-        ->result()
-        ;
-        
-        $docMenu = $this->session->userdata('subject_menu');
-        if(empty($docMenu)){
-        	$this->session->set_userdata('subject_menu', $subjects);
-        	redirect(base_url());
-        }
-        
-        $this->session->set_userdata('subject_menu', $subjects);
-        
         $item = $this->db->select('id, page_content')
         ->from($this->pageModel)
         ->where('page_type', $this->pageType)
