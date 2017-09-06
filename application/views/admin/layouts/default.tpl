@@ -149,6 +149,7 @@ Hello you! We're VAS of Mobiistar Corp.
             langRootAreYouSure = '{lang('are_u_sure')}';
             langRootOkButton = '{lang('ok')}';
             langRootCancelButton = '{lang('cancel')}';
+            rootBaseUrl = '{base_url()}';
         </script>
 
         {$listJs}

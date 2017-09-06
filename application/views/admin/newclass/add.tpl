@@ -90,6 +90,21 @@
 		                            </div>
                         		</div>
                         	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="address_street">{lang('done')} (*)</label>
+		                                <select id="done" class="form-control selectpicker params" notnull>
+		                                    <option value=""></option>
+		                                    <option value="0">{lang('waiting')}</option>
+		                                    <option value="1">{lang('done')}</option>
+		                                </select>
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+                        		
+                        		</div>
+                        	</div>
                         </form>
                     </div>
                 </div>
@@ -162,6 +177,11 @@
             noneSelectedText: langChooseOne
         }).on('hidden.bs.select', function (e){ });
     	$('#class').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
+    	$('#done').selectpicker({
             size: 10,
             liveSearch: true,
             noneSelectedText: langChooseOne

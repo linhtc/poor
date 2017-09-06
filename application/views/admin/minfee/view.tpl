@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {lang('home')}
+        {lang('minfee')}
         {*<small>Danh sách</small>*}
     </h1>
     <ol class="breadcrumb">

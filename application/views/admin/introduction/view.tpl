@@ -40,6 +40,7 @@
 var langNotify = '{lang('notify')}';
 var langComplete = '{lang('complete')}';
 var langError = '{lang('error')}';
+var langInputContent = '{lang('input_content')}';
 var $preview, editor, mobileToolbar, toolbar;
 
 function initLoading(dom){
@@ -93,7 +94,7 @@ $(document).ready(function() {
     }
     editor = new Simditor({
       textarea: $('#txt-content'),
-      placeholder: 'Nhap vai dong gioi thieu ve trang web',
+      placeholder: langInputContent,
       toolbar: toolbar,
       pasteImage: true,
       defaultImage: 'assets/images/image.png',

@@ -1,10 +1,8 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         {lang('class')}
-        <small id="real-title">{lang('add')}</small>
+        <small id="real-title">{lang('edit')}</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...</a></li>
@@ -23,36 +21,97 @@
                         <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
-
                 <div class="box-body pad">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <form>
-                            <div class="form-group">
-                                <label for="subject">{lang('subject')} (*)</label>
-                                <select id="subject" class="form-control selectpicker params" notnull>
-                                    <option value=""></option>
-                                    {foreach from=$subjectList key=i item=itemp}
-                                        <option value="{$itemp->id}">{$itemp->subject}</option>
-                                    {/foreach}
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="class">{lang('class')} (*)</label>
-                                <select id="class" class="form-control selectpicker params" notnull>
-                                    <option value=""></option>
-                                    {foreach from=$classList key=i item=itemp}
-                                        <option value="{$itemp->id}">{$itemp->class}</option>
-                                    {/foreach}
-                                </select>
-                            </div>
+                        <input type="hidden" class="form-control params" id="id" value="{$item->id}" readonly notnull >
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="class">{lang('class')} (*)</label>
+		                                <select id="class" class="form-control selectpicker params" notnull>
+		                                    <option value=""></option>
+		                                    {foreach from=$classList key=i item=itm}
+		                                        <option value="{$itm->class}">{$itm->class}</option>
+		                                    {/foreach}
+		                                </select>
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="subject">{lang('subject')} (*)</label>
+		                                <select id="subject" class="form-control selectpicker params" notnull>
+		                                    <option value=""></option>
+		                                    {foreach from=$subjectList key=i item=itm}
+		                                        <option value="{$itm->subject}">{$itm->subject}</option>
+		                                    {/foreach}
+		                                </select>
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="address_street">{lang('street')} (*)</label>
+		                                <input id="address_street" type="text" class="form-control params" notnull value="{$item->address_street}" >
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="district">{lang('district')} (*)</label>
+		                                <input id="address_district" type="text" class="form-control params" notnull value="{$item->address_district}" >
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="times_per_week">{lang('times_per_week')} (*)</label>
+		                                <input id="times_per_week" type="text" class="form-control params" notnull value="{$item->times_per_week}" >
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="work_time">{lang('work_time')} (*)</label>
+		                                <input id="work_time" type="text" class="form-control params" notnull value="{$item->work_time}" >
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="salary">{lang('salary')} (*)</label>
+		                                <input id="salary" type="text" class="form-control params" notnull value="{$item->salary}" >
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="requirement">{lang('requirement')} (*)</label>
+		                                <input id="requirement" type="text" class="form-control params" notnull value="{$item->requirement}" >
+		                            </div>
+                        		</div>
+                        	</div>
+                        	<div class="row">
+                        		<div class="col-md-6">
+		                            <div class="form-group">
+		                                <label for="address_street">{lang('done')} (*)</label>
+		                                <select id="done" class="form-control selectpicker params" notnull>
+		                                    <option value=""></option>
+		                                    <option value="0">{lang('waiting')}</option>
+		                                    <option value="1">{lang('done')}</option>
+		                                </select>
+		                            </div>
+                        		</div>
+                        		<div class="col-md-6">
+                        		
+                        		</div>
+                        	</div>
                         </form>
                     </div>
                 </div>
-
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-success" onclick="funcSubmit();">{lang('save')}</button>
+                <div class="box-footer text-right">
                     <button type="submit" class="btn btn-danger" onclick="funcCancel();">{lang('back')}</button>
+                    <button type="submit" class="btn btn-success" onclick="funcSubmit();">{lang('save')}</button>
                 </div>
             </div>
         </div>
@@ -67,7 +126,8 @@
 
     var itemSubject = '{$item->subject}';
     var itemClass = '{$item->class}';
-
+    var itemDone = '{$item->done}';
+    
     function funcSubmit() {
         var params = getParams();
         if(params === false){
@@ -75,7 +135,7 @@
             return false;
         }
         initLoading('.box-info');
-        $.post('edit', params, function (data) {
+        $.post('add', params, function (data) {
             destroyLoading('.box-info');
             toastr.remove();
             if (data == 1) {
@@ -126,7 +186,14 @@
             liveSearch: true,
             noneSelectedText: langChooseOne
         }).on('hidden.bs.select', function (e){ });
+    	$('#done').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
+
     	$('#subject').selectpicker('val', itemSubject);
     	$('#class').selectpicker('val', itemClass);
+    	$('#done').selectpicker('val', itemDone);
     });
 </script>
