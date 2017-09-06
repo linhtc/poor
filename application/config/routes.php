@@ -110,6 +110,26 @@ $route['admin/manage-contact/(:any)/(:any)'] = "admin/ManageContact/$1/$2";
 $route['en/admin/manage-contact/(:any)'] = "admin/ManageContact/$1";
 $route['en/admin/manage-contact/(:any)/(:any)'] = "admin/ManageContact/$1/$2";
 
+$route['admin/manage-news/(:any)'] = "admin/ManageNews/$1";
+$route['admin/manage-news/(:any)/(:any)'] = "admin/ManageNews/$1/$2";
+$route['en/admin/manage-news/(:any)'] = "admin/ManageNews/$1";
+$route['en/admin/manage-news/(:any)/(:any)'] = "admin/ManageNews/$1/$2";
+
+$route['admin/manage-fee/(:any)'] = "admin/ManageFee/$1";
+$route['admin/manage-fee/(:any)/(:any)'] = "admin/ManageFee/$1/$2";
+$route['en/admin/manage-fee/(:any)'] = "admin/ManageFee/$1";
+$route['en/admin/manage-fee/(:any)/(:any)'] = "admin/ManageFee/$1/$2";
+
+$route['admin/manage-min-fee/(:any)'] = "admin/ManageMinFee/$1";
+$route['admin/manage-min-fee/(:any)/(:any)'] = "admin/ManageMinFee/$1/$2";
+$route['en/admin/manage-min-fee/(:any)'] = "admin/ManageMinFee/$1";
+$route['en/admin/manage-min-fee/(:any)/(:any)'] = "admin/ManageMinFee/$1/$2";
+
+$route['admin/manage-recruit/(:any)'] = "admin/ManageRecruit/$1";
+$route['admin/manage-recruit/(:any)/(:any)'] = "admin/ManageRecruit/$1/$2";
+$route['en/admin/manage-recruit/(:any)'] = "admin/ManageRecruit/$1";
+$route['en/admin/manage-recruit/(:any)/(:any)'] = "admin/ManageRecruit/$1/$2";
+
 // default
 $route['(\w{2})/(.*)'] = '$2';
 $route['(\w{2})'] = $route['default_controller'];

@@ -7,23 +7,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package Admin
  *
  */
-class ManageNewClass extends MY_Controller {
+class ManageRecruit extends MY_Controller {
 
 	private $class;
 	private $numRow;
-	private $classModel;
-	private $subjectModel;
-	private $newclassModel;
+	private $newsModel;
 	private $viewPath;
 	
     function __construct() {
     	parent::__construct();
     	$this->class = strtolower(preg_replace('/(?<!^)([A-Z])/', '-\\1', get_class()));
         $this->numRows = 10;
-        $this->newclassModel= 'e_new_classes';
-        $this->classModel = 'e_classes';
-        $this->subjectModel = 'e_subjects';
-        $this->viewPath = 'admin/newclass/';
+        $this->newsModel = 'e_recruits';
+        $this->viewPath = 'admin/recruit/';
     }
 
     /**
@@ -66,16 +62,11 @@ class ManageNewClass extends MY_Controller {
 
             'static/default/admin/template/js/opt.min.js',
         );
-        
-        $stHtml = '<option value="">'.lang('all_status').'</option><option value="0">'.lang('class_waiting').'
-			</option><option value="1">'.lang('class_success').'</option>'
-		;
 
         $data = array(
             'permission' => $permission,
             'listJs' => add_Js($listJs),
             'listCss' => add_css($listCss),
-        	'doneSel' => $stHtml
         );
 
         $this->parser->parse($this->viewPath."view", $data);
@@ -99,25 +90,25 @@ class ManageNewClass extends MY_Controller {
 
         $listCss = array(
             'static/default/admin/template/plugins/toastr/toastr.min.css',
-            'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.css',
+        		'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.css',
+        		'static/default/admin/template/plugins/simditor/styles/simditor.css',
         );
         $listJs = array(
             'static/default/admin/template/plugins/jstree/jstree.min.js',
             'static/default/admin/template/plugins/toastr/toastr.min.js',
             'static/default/admin/template/plugins/blockui/jquery.blockUI.js',
-            'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
+        		'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
+        		'static/default/admin/template/plugins/simditor/scripts/module.js',
+        		'static/default/admin/template/plugins/simditor/scripts/hotkeys.js',
+        		'static/default/admin/template/plugins/simditor/scripts/uploader.js',
+        		'static/default/admin/template/plugins/simditor/scripts/simditor.js'
         );
-        
-        $classList = $this->db->select('id, class')->from($this->classModel)->where('deleted', 0)->get()->result();
-        $subjectList = $this->db->select('id, subject')->from($this->subjectModel)->where('deleted', 0)->get()->result();
-        
+
         $data = array(
             'viewPath' => $this->viewPath,
             'permission' => $permission,
             'listJs' => add_Js($listJs),
-            'listCss' => add_css($listCss),
-        		'classList' => $classList,
-        		'subjectList' => $subjectList
+            'listCss' => add_css($listCss)
         );
         $this->parser->parse($this->viewPath."add", $data);
     }
@@ -143,8 +134,8 @@ class ManageNewClass extends MY_Controller {
         $this->layout->set_layout('default');
 
 
-        $item = $this->db->select('id, modified, class, subject, address_street, address_district, times_per_week, work_time, salary, requirement, done')
-            ->from($this->newclassModel)
+        $item = $this->db->select('id, title, content, image, summary')
+            ->from($this->newsModel)
             ->where('id', $id)
             ->get()
             ->row()
@@ -156,26 +147,25 @@ class ManageNewClass extends MY_Controller {
 
         $listCss = array(
             'static/default/admin/template/plugins/toastr/toastr.min.css',
-            'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.css',
+        		'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.css',
+        		'static/default/admin/template/plugins/simditor/styles/simditor.css',
         );
         $listJs = array(
             'static/default/admin/template/plugins/jstree/jstree.min.js',
             'static/default/admin/template/plugins/toastr/toastr.min.js',
             'static/default/admin/template/plugins/blockui/jquery.blockUI.js',
-            'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
+        		'static/default/admin/template/plugins/bootstrap-select/bootstrap-select.min.js',
+        		'static/default/admin/template/plugins/simditor/scripts/module.js',
+        		'static/default/admin/template/plugins/simditor/scripts/hotkeys.js',
+        		'static/default/admin/template/plugins/simditor/scripts/uploader.js',
+        		'static/default/admin/template/plugins/simditor/scripts/simditor.js'
         );
-        
-        $classList = $this->db->select('id, class')->from($this->classModel)->where('deleted', 0)->get()->result();
-        $subjectList = $this->db->select('id, subject')->from($this->subjectModel)->where('deleted', 0)->get()->result();
-        
         $data = array(
             'permission' => $permission,
             'viewPath' => $this->viewPath,
             'listJs' => add_Js($listJs),
             'listCss' => add_css($listCss),
-        		'item' => $item,
-        		'classList' => $classList,
-        		'subjectList' => $subjectList
+            'item' => $item
         );
         $this->parser->parse($this->viewPath."edit", $data);
     }
@@ -190,7 +180,7 @@ class ManageNewClass extends MY_Controller {
         $id = $this->input->post('id', true);
         if(!empty($id)){
             $pullClass = array('deleted' => 1);
-            $result = $this->db->where('id', $id)->update($this->newclassModel, $pullClass);
+            $result = $this->db->where('id', $id)->update($this->newsModel, $pullClass);
             echo $result; exit;
         }
         echo 0; exit;
@@ -203,15 +193,14 @@ class ManageNewClass extends MY_Controller {
         $permission = $this->check_permission($this->class, 'view');
         $this->layout->disable_layout();
 
-        $sortMaps = array('id', 'modified', 'class', 'subject', 'address_street', 'address_district', 'times_per_week', 'work_time', 'salary', 'requirement');
+        $sortMaps = array('id', 'modified', 'ipaddress', 'title', 'summary', 'image', 'content');
         $page = $this->input->post('page', true);
         $sort = $this->input->post('sort', true);
         $type = $this->input->post('type', true);
         $numRows = $this->input->post('auto', true);
         if(!empty($numRows) && $numRows > 10 && $numRows < 101){ $this->numRows = $numRows; }
         $start = ($page-1)*$this->numRows;
-        $query = "select `id`, `modified`, `ipaddress`, `class`, `subject`, `address_street`, `address_district`, `times_per_week`, 
-			`work_time`, `salary`, `requirement` from ".$this->newclassModel;
+        $query = "select `id`, `modified`, `ipaddress`, `title`, `summary`, `image`, `content` from ".$this->newsModel;
         $query .= $this->criteria();
         $num = $this->db->query($query)->num_rows();
         $query .= " order by `".(empty($sortMaps[$sort]) ? 'id' : $sortMaps[$sort]) ."` ".$type;
@@ -243,7 +232,7 @@ class ManageNewClass extends MY_Controller {
         $type = $this->input->get_post('type', true);
 
         $query = "select `id`, `modified`, `ipaddress`, `class`
-          FROM ".$this->classModel;
+          FROM ".$this->newsModel;
         $query .= $this->criteria();
         $query .= " order by `".(empty($sortMaps[$sort]) ? 'id' : $sortMaps[$sort]) ."` ".$type;
         $list = $this->db->query($query)->result_array();
@@ -258,27 +247,62 @@ class ManageNewClass extends MY_Controller {
     }
 
     /**
+     * Upload document file
+     */
+    public function upload() {
+    	$this->check_permission($this->class, 'execute');
+    	$this->layout->disable_layout();
+    	
+    	$response = new stdClass();
+    	$response->url = null;
+    	$response->result = 0;
+    	
+    	$document = $this->input->post('doc', false);
+    	
+    	//     	if (!file_exists(MEDIAPATH.'uploads/documents/')) {
+    	// //     		echo MEDIAPATH.'uploads/document/'.$document;
+    	//     		mkdir('/media/uploads/documents/'.$document, 0777, 'R');
+    	//     	}
+    	
+    	if(isset($_FILES["upfiles"])){
+    		//     		$path_parts = pathinfo($_FILES["upfiles"]["name"]);
+    		//     		$extension = $path_parts['extension'];
+    		$fileLocation = $_FILES['upfiles']['tmp_name'];
+    		//     		$file = time().$_FILES["upfiles"]["name"];//.'.'.$extension;
+    		$file = $_FILES["upfiles"]["name"];//.'.'.$extension;
+    		$file = $this->stripVN($file);
+    		$file= preg_replace('/\s+/', '', $file);
+    		//     		$file = urlencode($file);
+    		if (move_uploaded_file($fileLocation, MEDIAPATH.'uploads/recruits/'.$file)) {
+    			//     			$url = base_url().'media/uploads/documents/'.$file;
+    			$url = base_url().'media/uploads/images/'.$file;
+    			$pullClass = array(
+    					'tmp_photo' => $url,
+    					'modified' => date('Y-m-d H:i:s', time())
+    			);
+    			//             $response->url = $url.'?t='.time();
+    			$response->url = $url;
+    			$response->result = 1;
+    			//     		$response->result = $this->db->where('id', $id)->update($this->sliderModel, $pullClass);
+    		}
+    	}
+    	echo json_encode($response); exit;
+    }
+    
+    /**
      * Create criteria string for query
      */
     private function criteria(){
     	$id = $this->input->get_post('id', true);
     	$time = $this->input->get_post('dt', true);
-    	//         $ip = $this->input->get_post('ip', true);
-    	$class = $this->input->get_post('cl', true);
-    	$subject = $this->input->get_post('su', true);
-    	$street = $this->input->get_post('str', true);
-    	$district = $this->input->get_post('di', true);
-    	$timesPerWeek = $this->input->get_post('tpw', true);
-    	$workTime = $this->input->get_post('wt', true);
-    	$salary = $this->input->get_post('sa', true);
-    	$requirement = $this->input->get_post('re', true);
-    	$status = $this->input->get_post('sta', true);
+        $ip = $this->input->get_post('ip', true);
+        $class = $this->input->get_post('cl', true);
         $modified = explode(' - ', $time);
         $to = null; $from = null;
 
         $criteria = " where `deleted` = 0 ";
         if(!empty($id)){
-        	$criteria .= " AND `id` = '".addslashes($id)."' ";
+        	$criteria .= " AND `id` = '".addslashes($class)."' ";
         }
         if(is_array($modified)){
             if(count($modified) === 2){
@@ -297,32 +321,11 @@ class ManageNewClass extends MY_Controller {
             $to = date('Y-m-d', strtotime($to));
             $criteria .= " AND `modified` <= '$to 23:59:59' ";
         }
+        if(!empty($ip)){
+        	$criteria .= " AND `ipaddress` like '%".addslashes($ip)."%' ";
+        }
         if(!empty($class)){
         	$criteria .= " AND `class` like '%".addslashes($class)."%' ";
-        }
-        if(!empty($subject)){
-        	$criteria .= " AND `subject` like '%".addslashes($subject)."%' ";
-        }
-        if(!empty($street)){
-        	$criteria .= " AND `address_street` like '%".addslashes($street)."%' ";
-        }
-        if(!empty($district)){
-        	$criteria .= " AND `address_district` like '%".addslashes($district)."%' ";
-        }
-        if(!empty($timesPerWeek)){
-        	$criteria .= " AND `times_per_week` like '%".addslashes($timesPerWeek)."%' ";
-        }
-        if(!empty($workTime)){
-        	$criteria .= " AND `work_time` like '%".addslashes($workTime)."%' ";
-        }
-        if(!empty($salary)){
-        	$criteria .= " AND `salary` like '%".addslashes($salary)."%' ";
-        }
-        if(!empty($requirement)){
-        	$criteria .= " AND `requirement` like '%".addslashes($requirement)."%' ";
-        }
-        if(!empty($status)){
-        	$criteria .= " AND `done` = '".addslashes($status)."' ";
         }
         return $criteria;
     }
@@ -332,27 +335,23 @@ class ManageNewClass extends MY_Controller {
      */
     private function modify(){
     	$id = $this->input->post('id', false);
-    	$class = $this->input->post('class', false);
-    	$subject = $this->input->post('subject', false);
-    	$address_street = $this->input->post('address_street', false);
-    	$address_district = $this->input->post('address_district', false);
-    	$times_per_week = $this->input->post('times_per_week', false);
-    	$work_time = $this->input->post('work_time', false);
-    	$salary = $this->input->post('salary', false);
-    	$requirement = $this->input->post('requirement', false);
-    	$done = $this->input->post('done', false);
-        if(!empty($class)){
+    	$title = $this->input->post('title', false);
+    	$image = $this->input->post('image', false);
+    	$summary = $this->input->post('summary', false);
+    	$content = $this->input->post('content', false);
+    	if(!empty($title)){
         	$ip = $this->getClientIP();
+        	$friendly = $this->stripVN($title);
+        	$friendly = preg_replace('/\s+/', '-', $friendly);
+        	$friendly = strtolower($friendly);
             $query = "
-                INSERT INTO `".$this->newclassModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, 
-				`class`, `subject`, `address_street`, `address_district`, `times_per_week`, `work_time`, `salary`, `requirement`, `done`) 
-                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($class)."', '".addslashes($subject)."', 
-				'".addslashes($address_street)."', '".addslashes($address_district)."', '".addslashes($times_per_week)."', '".addslashes($work_time)."', 
-				'".addslashes($salary)."', '".addslashes($requirement)."', '".addslashes($done)."')
-                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `deleted` = VALUES(deleted), modified = VALUES(modified),
-					`class` = VALUES(class), `subject` = VALUES(subject), `address_street` = VALUES(address_street), `address_district` = VALUES(address_district), 
-					`times_per_week` = VALUES(times_per_week), `work_time` = VALUES(work_time), `salary` = VALUES(salary), 
-					`requirement` = VALUES(requirement), `done` = VALUES(done)
+                INSERT INTO `".$this->newsModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `title`, `image`, 
+				`summary`, `content`, `friendly`) 
+                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($title)."', '".addslashes($image)."', 
+					'".addslashes($summary)."', '".addslashes($content)."', '".addslashes($friendly)."')
+                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `title` = VALUES(title), `image` = VALUES(image), 
+					`summary` = VALUES(summary), `content` = VALUES(content), `friendly` = VALUES(friendly),
+					`deleted` = VALUES(deleted), modified = VALUES(modified)
                 ;
             ";
             $result = $this->db->query($query);
