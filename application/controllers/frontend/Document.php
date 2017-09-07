@@ -60,13 +60,18 @@ class Document extends MY_Controller {
     	
     	$documents = array();
     	
-    	if(!empty($class) && !empty($subject)){
+    	if(!empty($class) && !empty($subject) && !empty($subclass)){
     		
-    		$subject = $this->db->select('id')
+    		$parentSubject = $this->db->select('id, subject, friendly')
+    		->from($this->subjectModel)
+    		->where('deleted', 0)->where('friendly', $subject)
+    		->get()->row();
+    		
+    		$subject = $this->db->select('id, subject, friendly')
     		->from($this->subjectModel)
     		->where('deleted', 0)->where('friendly', empty($subclass) ? $subject : $subclass)
     		->get()->row();
-    		$class = $this->db->select('id')
+    		$class = $this->db->select('id, class, friendly')
     		->from($this->classModel)
     		->where('deleted', 0)->where('friendly', $class)
     		->get()->row();
@@ -101,7 +106,112 @@ class Document extends MY_Controller {
     		$data['specList'] = json_encode($specs);
     		$data['docStorage'] = json_encode($docStorage);
     		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('document'),
+    						'url' => base_url().'tai-lieu',
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $parentSubject->subject,
+    						'url' => base_url().'tai-lieu/'.$parentSubject->friendly,
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $class->class,
+    						'url' => base_url().'tai-lieu/'.$parentSubject->friendly.'/'.$class->friendly,
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $subject->subject,
+    						'url' => base_url().'tai-lieu/'.$parentSubject->friendly.'/'.$class->friendly.'/'.$subject->friendly,
+    						'class' => 'active'
+    				),
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."detail", $data);
+    	} elseif(!empty($subject) && !empty($class)){
+    		$subject = $this->db->select('id, subject, friendly')
+    		->from($this->subjectModel)
+    		->where('deleted', 0)->where('parent', 0)->where('friendly', $subject)
+    		->get()->row();
+    		$sublist = $this->db->select('id, subject, friendly')
+    		->from($this->subjectModel)
+    		->where('deleted', 0)->where('parent', $subject->id)
+    		->get()->result();
+    		$subarrayStr = '';
+    		$subarray = array();
+    		array_push($subarray, $subject->id);
+    		foreach($sublist as $sub){
+    			array_push($subarray, $sub->id);
+    			$subarrayStr .= (empty($subarrayStr) ? '' : ', ')."'$sub->id'";
+    		}
+    		$class = $this->db->select('id, class, friendly')
+    		->from($this->classModel)
+    		->where('deleted', 0)->where('friendly', $class)
+    		->get()->row();
+    		$query = "
+    		select rs.class, rs.classname, rs.friendly,
+    		group_concat(concat_ws(', ', (select concat(s.friendly, ':', s.subject) from e_subjects s where s.id = rs.`subject2`))) `subject`,
+    		(select c.sort from e_classes c where c.id = rs.class and c.deleted = 0) sort
+    		from (
+    		select d.class, d.`subject` subject2,
+    		(select c.sort from $this->subjectModel c where c.id = d.`subject` and c.deleted = 0) sort,
+    		(select c.class from $this->classModel c where c.id = d.class and c.deleted = 0) classname,
+    		(select c.friendly from $this->classModel c where c.id = d.class and c.deleted = 0) friendly
+    		from `$this->documentModel` d
+    		where d.deleted = 0 and d.subject in ($subarrayStr) and d.class = '$class->id'
+    		order by sort
+    		) rs
+    		GROUP BY `rs`.`class`
+    		order by sort asc;
+    		";
+    		$documentTmp = $this->db->query($query)->result_array();
+    		foreach($documentTmp as $tmp){
+    			$tmp = (object)$tmp;
+    			$subjects = $tmp->subject;
+    			$tmp->subjects = array();
+    			if(!empty($subjects)){
+    				$subjects = explode(',', $subjects);
+    				if(count($subjects)){
+    					foreach($subjects as $itmp){
+    						$itmp= explode(':', $itmp);
+    						if(count($itmp) === 2){
+    							$subItem = new stdClass();
+    							$subItem->friendly = $itmp[0];
+    							$subItem->subject= $itmp[1];
+    							array_push($tmp->subjects, (array)$subItem);
+    						}
+    					}
+    				}
+    			}
+    			array_push($documents, (array)$tmp);
+    		}
+    		
+    		$data['subject'] = $subject;
+    		$data['documents'] = $documents;
+    		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('document'),
+    						'url' => base_url().'tai-lieu',
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $subject->subject,
+    						'url' => base_url().'tai-lieu/'.$subject->friendly,
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $class->class,
+    						'url' => base_url().'tai-lieu/'.$subject->friendly.'/'.$class->friendly,
+    						'class' => 'active'
+    				),
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
+    		$this->parser->parse($this->viewPath."class", $data);
     	} elseif(!empty($subject)){
     		$subject = $this->db->select('id, subject, friendly')
     		->from($this->subjectModel)
@@ -111,20 +221,30 @@ class Document extends MY_Controller {
     		->from($this->subjectModel)
     		->where('deleted', 0)->where('parent', $subject->id)
     		->get()->result();
+    		$subarrayStr = '';
     		$subarray = array();
     		array_push($subarray, $subject->id);
     		foreach($sublist as $sub){
     			array_push($subarray, $sub->id);
+    			$subarrayStr .= (empty($subarrayStr) ? '' : ', ')."'$sub->id'";
     		}
-    		$documentTmp = $this->db->select('class, 
-				(select c.class from '.$this->classModel.' c where c.id = d.class and c.deleted = 0) classname,
-    			(select c.friendly from '.$this->classModel.' c where c.id = d.class and c.deleted = 0) friendly,
-    			group_concat(concat_ws(",", (select concat(s.friendly, ":", s.subject) from e_subjects s where s.id = d.subject))) `subject`'
-    		)
-    		->from($this->documentModel.' d')
-    		->where('deleted', 0)->where_in('subject', $subarray)
-    		->group_by('d.class')
-    		->get()->result_array();
+    		$query = "
+				select rs.class, rs.classname, rs.friendly,
+					group_concat(concat_ws(', ', (select concat(s.friendly, ':', s.subject) from e_subjects s where s.id = rs.`subject2`))) `subject`,
+					(select c.sort from e_classes c where c.id = rs.class and c.deleted = 0) sort 
+				from (
+					select d.class, d.`subject` subject2,
+					(select c.sort from $this->subjectModel c where c.id = d.`subject` and c.deleted = 0) sort, 
+					(select c.class from $this->classModel c where c.id = d.class and c.deleted = 0) classname, 
+					(select c.friendly from $this->classModel c where c.id = d.class and c.deleted = 0) friendly
+					from `$this->documentModel` d
+					where d.deleted = 0 and d.subject in ($subarrayStr)
+				    order by sort
+				) rs
+				GROUP BY `rs`.`class`
+				order by sort asc;
+			";
+    		$documentTmp = $this->db->query($query)->result_array();
     		foreach($documentTmp as $tmp){
     			$tmp = (object)$tmp;
     			$subjects = $tmp->subject;
@@ -150,12 +270,38 @@ class Document extends MY_Controller {
     		$data['subject'] = $subject;
     		$data['documents'] = $documents;
     		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('document'),
+    						'url' => base_url().'tai-lieu',
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $subject->subject,
+    						'url' => base_url().'tai-lieu/'.$subject->friendly,
+    						'class' => 'active'
+    				),
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."class", $data);
     	} else{
     		$documents = $this->db->select('id, subject, friendly')
     		->from($this->subjectModel)->where('deleted', 0)
-    		->where('parent', 0)->get()->result_array();
+    		->where('parent', 0)
+    		->order_by('sort', 'asc')
+    		->get()->result_array();
     		$data['documents'] = $documents;
+    		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('document'),
+    						'url' => base_url().'tai-lieu',
+    						'class' => 'active'
+    				)
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."view", $data);
     	}
     }

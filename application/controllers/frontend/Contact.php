@@ -48,6 +48,15 @@ class Contact extends MY_Controller {
         		'uuid' => 'contact',
         		'uuid' => $this->pageType
         );
+        
+        $breadcrumb = array(
+        		array(
+        				'title' => lang('contact'),
+        				'url' => base_url().'lien-he',
+        				'class' => 'active'
+        		)
+        );
+        $data['breadcrumb'] = $breadcrumb;
 
         $this->parser->parse($this->viewPath."view", $data);
     }

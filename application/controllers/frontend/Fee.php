@@ -63,6 +63,15 @@ class Fee extends MY_Controller {
         		'item' => $item,
         		'uuid' => $this->pageType
         );
+        
+        $breadcrumb = array(
+        		array(
+        				'title' => lang('fee'),
+        				'url' => base_url().'hoc-phi',
+        				'class' => 'active'
+        		)
+        );
+        $data['breadcrumb'] = $breadcrumb;
 
         $this->parser->parse($this->viewPath."view", $data);
     }

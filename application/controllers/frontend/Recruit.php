@@ -65,12 +65,37 @@ class Recruit extends MY_Controller {
     		->from($this->recruitModel)
     		->where('deleted', 0)->get()->result_array();
     		$data['news'] = $news;
+    		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('recruit'),
+    						'url' => base_url().'tuyen-dung',
+    						'class' => 'active'
+    				)
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."view", $data);
     	} else{
     		$item = $this->db->select('id, modified, title, friendly, image, summary, content')
     		->from($this->recruitModel)->where('deleted', 0)
     		->where('friendly', $new)->get()->row();
     		$data['item'] = $item;
+    		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('recruit'),
+    						'url' => base_url().'tuyen-dung',
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $item->title,
+    						'url' => base_url().'tuyen-dung/'.$new,
+    						'class' => 'active'
+    				)
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."detail", $data);
     	}
     }

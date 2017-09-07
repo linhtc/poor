@@ -63,12 +63,37 @@ class News extends MY_Controller {
     		->from($this->newsModel)
     		->where('deleted', 0)->get()->result_array();
     		$data['news'] = $news;
+    		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('news'),
+    						'url' => base_url().'tin-tuc',
+    						'class' => 'active'
+    				)
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."view", $data);
     	} else{
     		$item = $this->db->select('id, modified, title, friendly, image, summary, content')
     		->from($this->newsModel)->where('deleted', 0)
     		->where('friendly', $new)->get()->row();
     		$data['item'] = $item;
+    		
+    		$breadcrumb = array(
+    				array(
+    						'title' => lang('news'),
+    						'url' => base_url().'tin-tuc',
+    						'class' => ''
+    				),
+    				array(
+    						'title' => $item->title,
+    						'url' => base_url().'tin-tuc/'.$new,
+    						'class' => 'active'
+    				)
+    		);
+    		$data['breadcrumb'] = $breadcrumb;
+    		
     		$this->parser->parse($this->viewPath."detail", $data);
     	}
     }

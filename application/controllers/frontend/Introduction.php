@@ -63,6 +63,15 @@ class Introduction extends MY_Controller {
         		'item' => $item,
         		'uuid' => $this->pageType
         );
+        
+        $breadcrumb = array(
+        		array(
+        				'title' => lang('introduction'),
+        				'url' => base_url().'gioi-thieu',
+        				'class' => 'active'
+        		)
+        );
+        $data['breadcrumb'] = $breadcrumb;
 
         $this->parser->parse($this->viewPath."view", $data);
     }

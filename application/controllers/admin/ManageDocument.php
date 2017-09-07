@@ -386,7 +386,7 @@ class ManageDocument extends MY_Controller {
                 ";
     			
     			$this->db->trans_begin();
-//     			$this->db->where('id >', 0, false)->update($this->specModel, array('deleted' => 1));
+    			$this->db->where('document', $document)->update($this->docDetailModel, array('deleted' => 1));
     			$this->db->query($query);
     			
     			if ($this->db->trans_status() === TRUE){

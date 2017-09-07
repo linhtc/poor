@@ -75,3 +75,14 @@
 		</ul>
 	</div>  
 </nav>
+<div class="clearfix"></div>
+<ul class="breadcrumb">
+    <li><a href="{base_url()}">{lang('home')}</a></li>
+    {foreach from=$breadcrumb key=kcrumb item=icrumb}
+    {if $icrumb.class eq ''}
+    <li class="$icrumb.class"><a href="{$icrumb.url}">{$icrumb.title}</a></li>
+    {else}
+    <li class="$icrumb.class">{$icrumb.title}</li>
+    {/if}
+    {/foreach}
+</ul>

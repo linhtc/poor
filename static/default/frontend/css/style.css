@@ -1401,7 +1401,7 @@ nav.nav{ background: #014279; }
 .btn-primary{ background: #007700; }
 .btn-info{ background: #007700; }
 footer{ background: #3b5998; }
-.breadcrumb{ background: #007700 !important; }
+.breadcrumb{ background: inherit; margin-top: 10px; }
 .info.lop-da-giao{ color: red; font-size: 14px; }
 .info.dang-can-gia-su{ color: green; font-size: 14px; }
 nav.nav .dropdown-menu{ background: #014279; }
