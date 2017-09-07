@@ -1,5 +1,6 @@
 <div class="row home-container" style="min-height: 300px;">
 	<div class="col-md-9">
+		{include file='frontend/layouts/breadcrumb.tpl'}
 		{$smarty.session.contact->maps}
 	</div>
 	<div class="col-md-3">

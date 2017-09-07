@@ -67,10 +67,15 @@ $route['tai-lieu/(:any)'] = 'frontend/document/view/$1';
 $route['tai-lieu/(:any)/(:any)'] = 'frontend/document/view/$1/$2';
 $route['tai-lieu/(:any)/(:any)/(:any)'] = 'frontend/document/view/$1/$2/$3';
 
+$route['lop-moi'] = 'frontend/NewClass/view';
 $route['hoc-phi'] = 'frontend/fee/view';
 $route['muc-phi-nhan-lop'] = 'frontend/MinFee/view';
 $route['tuyen-dung'] = 'frontend/recruit/view';
 $route['tuyen-dung/(:any)'] = 'frontend/recruit/view/$1';
+// $route['dang-ky'] = 'frontend/register/view';
+$route['dang-ky/lam-gia-su'] = 'frontend/register/teacher';
+$route['dang-ky/tim-gia-su'] = 'frontend/register/student';
+$route['dang-ky/(:any)'] = 'frontend/register/$1';
 $route['lien-he'] = 'frontend/contact/view';
 
 // backend

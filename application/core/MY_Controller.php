@@ -44,6 +44,7 @@ class MY_Controller extends CI_Controller {
         ->from('e_subjects')
         ->where('deleted', 0)
         ->where('parent', 0)
+        ->order_by('sort', 'asc')
         ->get()
         ->result()
         ;

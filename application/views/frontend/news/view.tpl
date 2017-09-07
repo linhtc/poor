@@ -1,5 +1,6 @@
 <div class="row" style="min-height: 300px;">
 	<div class="col-md-9">
+		{include file='frontend/layouts/breadcrumb.tpl'}
 		{foreach from=$news key=i item=item}
 		<div class="media">
 		  	<div class="media-left">

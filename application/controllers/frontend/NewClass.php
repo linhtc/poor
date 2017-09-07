@@ -11,23 +11,23 @@
  *
  * @author CPU10890-local
  */
-class Introduction extends MY_Controller {
+class NewClass extends MY_Controller {
 
 	private $class;
-	private $folder;
 	private $viewPath;
 	private $pageModel;
 	private $pageType;
 	private $subjectModel;
+	private $newClassModel;
 	
     function __construct() {
         parent::__construct();
         $this->class = strtolower(get_class());
-        $this->viewPath = 'frontend/introduction/';
-        $this->folder = 'home';
+        $this->viewPath = 'frontend/newclass/';
         $this->pageModel = 'e_pages';
-        $this->pageType = 'introduction';
+        $this->pageType = 'newclass';
         $this->subjectModel = 'e_subjects';
+        $this->newClassModel = 'e_new_classes';
     }
     
     /**
@@ -62,12 +62,16 @@ class Introduction extends MY_Controller {
         
         $breadcrumb = array(
         		array(
-        				'title' => lang('introduction'),
-        				'url' => base_url().'gioi-thieu',
+        				'title' => lang('newclass'),
+        				'url' => base_url().'lop-moi',
         				'class' => 'active'
         		)
         );
         $data['breadcrumb'] = $breadcrumb;
+        
+        $list = $this->db->select('*')->from($this->newClassModel)->where('deleted', 0)
+        ->order_by('id', 'desc')->get()->result_array();
+        $data['list'] = $list;
 
         $this->parser->parse($this->viewPath."view", $data);
     }

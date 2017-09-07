@@ -1,5 +1,6 @@
 <div class="row" style="min-height: 300px;">
 	<div class="col-md-9 row-container-doc">
+		{include file='frontend/layouts/breadcrumb.tpl'}
 		<div id="jstree">
 		
 		</div>
