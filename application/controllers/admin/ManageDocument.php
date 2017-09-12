@@ -428,7 +428,7 @@ class ManageDocument extends MY_Controller {
     		$file = $_FILES["upfiles"]["name"];//.'.'.$extension;
     		$file = $this->stripVN($file);
     		$file= preg_replace('/\s+/', '', $file);
-//     		$file = urlencode($file);
+    		$file = urlencode($file);
     		if (move_uploaded_file($fileLocation, MEDIAPATH.'uploads/documents/'.$file)) {
 //     			$url = base_url().'media/uploads/documents/'.$file;
     			$url = base_url().'api/cdn/metadata/'.$file;
