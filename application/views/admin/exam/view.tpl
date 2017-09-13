@@ -22,7 +22,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {lang('class')}
+        {lang('exam')}
         {*<small>Danh sách</small>*}
     </h1>
     <ol class="breadcrumb">
@@ -58,8 +58,8 @@
                                 <th col-id="id">{lang('id')}</th>
                                 <th col-id="dt">{lang('last_update')}</th>
                                 <th col-id="ip">{lang('ipaddress')}</th>
-                                <th col-id="cl">{lang('class')}</th>
-                                <th col-id="so">{lang('sort')}</th>
+                                <th col-id="su" col-sel="1" col-multi="multiple">{lang('subject')}</th>
+                                <th col-id="cl" col-sel="1" col-multi="multiple">{lang('class')}</th>
                                 <th col-id="action">{lang('action')}</th>
                             </tr>
                             </tfoot>
@@ -107,8 +107,8 @@
 
 <script>
     var selMap = {
-        b: '{$brand}',
-        pm: '{$pm}'
+        cl: '{$classSel}',
+        su: '{$subjectSel}'
     };
     var areYouSure = '{lang('are_u_sure')}';
     var okButton = '{lang('ok')}';

@@ -129,7 +129,7 @@ class ManageClass extends MY_Controller {
         $this->layout->set_layout('default');
 
 
-        $item = $this->db->select('id, class')
+        $item = $this->db->select('id, class, sort')
             ->from($this->classModel)
             ->where('id', $id)
             ->get()
@@ -183,14 +183,14 @@ class ManageClass extends MY_Controller {
         $permission = $this->check_permission($this->class, 'view');
         $this->layout->disable_layout();
 
-        $sortMaps = array('id', 'modified', 'ipaddress', 'class');
+        $sortMaps = array('id', 'modified', 'ipaddress', 'class', 'sort');
         $page = $this->input->post('page', true);
         $sort = $this->input->post('sort', true);
         $type = $this->input->post('type', true);
         $numRows = $this->input->post('auto', true);
         if(!empty($numRows) && $numRows > 10 && $numRows < 101){ $this->numRows = $numRows; }
         $start = ($page-1)*$this->numRows;
-        $query = "select `id`, `modified`, `ipaddress`, `class` from ".$this->classModel;
+        $query = "select `id`, `modified`, `ipaddress`, `class`, `sort` from ".$this->classModel;
         $query .= $this->criteria();
         $num = $this->db->query($query)->num_rows();
         $query .= " order by `".(empty($sortMaps[$sort]) ? 'id' : $sortMaps[$sort]) ."` ".$type;
@@ -281,17 +281,19 @@ class ManageClass extends MY_Controller {
      * Modify data
      */
     private function modify(){
-        $id = $this->input->post('id', false);
-        $class = $this->input->post('class', false);
+    	$id = $this->input->post('id', false);
+    	$class = $this->input->post('class', false);
+    	$sort = $this->input->post('sort', false);
         if(!empty($class)){
         	$ip = $this->getClientIP();
         	$friendly = $this->stripVN($class);
         	$friendly = preg_replace('/\s+/', '-', $friendly);
         	$friendly = strtolower($friendly);
             $query = "
-                INSERT INTO `".$this->classModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `class`, `friendly`) 
-                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($class)."', '".addslashes($friendly)."')
-                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `class` = VALUES(class), `friendly` = VALUES(friendly),
+                INSERT INTO `".$this->classModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `class`, `friendly`, `sort`) 
+                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($class)."', 
+					'".addslashes($friendly)."', '".addslashes($sort)."')
+                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `class` = VALUES(class), `friendly` = VALUES(friendly), `sort` = VALUES(sort),
 					`deleted` = VALUES(deleted), modified = VALUES(modified)
                 ;
             ";

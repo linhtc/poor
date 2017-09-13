@@ -5,6 +5,7 @@
             <td>{$item.modified|date_format:lang('smt_dt_format')}</td>
             <td>{$item.ipaddress}</td>
             <td>{$item.subject}</td>
+            <td>{$item.sort}</td>
             <td style="text-align: center;">
                 {if (not empty($permission['edit'])) or $permission eq 1}
                     <a href="edit/{$this->mask($item.id)}" onclick="window.location='edit/{$item.id}'" class="label label-info" style="cursor: pointer;">{lang('edit')}</a>

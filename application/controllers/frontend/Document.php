@@ -238,7 +238,7 @@ class Document extends MY_Controller {
 					(select c.class from $this->classModel c where c.id = d.class and c.deleted = 0) classname, 
 					(select c.friendly from $this->classModel c where c.id = d.class and c.deleted = 0) friendly
 					from `$this->documentModel` d
-					where d.deleted = 0 and d.subject in ($subarrayStr)
+					where d.deleted = 0 ".(!empty($subarrayStr) ? "and d.subject in ($subarrayStr)" : '')."
 				    order by sort
 				) rs
 				GROUP BY `rs`.`class`

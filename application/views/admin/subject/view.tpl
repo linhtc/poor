@@ -59,6 +59,7 @@
                                 <th col-id="dt">{lang('last_update')}</th>
                                 <th col-id="ip">{lang('ipaddress')}</th>
                                 <th col-id="su">{lang('subject')}</th>
+                                <th col-id="so">{lang('sort')}</th>
                                 <th col-id="action">{lang('action')}</th>
                             </tr>
                             </tfoot>

@@ -3,8 +3,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {lang('class')}
-        <small id="real-title">{lang('edit')}</small>
+        {lang('exam')}
+        <small id="real-title">{lang('add')}</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-spinner fa-pulse fa-fw"></i> Loading...</a></li>
@@ -28,18 +28,23 @@
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="brand">{lang('id')} (*)</label>
-                                <input id="id" type="text" class="form-control params" notnull value="{$item->id}" readonly >
+                                <label for="subject">{lang('subject')} (*)</label>
+                                <select id="subject" class="form-control selectpicker params" notnull>
+                                    <option value=""></option>
+                                    {foreach from=$subjectList key=i item=item}
+                                        <option value="{$item->id}">{$item->subject}</option>
+                                    {/foreach}
+                                </select>
                             </div>
                             
                             <div class="form-group">
                                 <label for="class">{lang('class')} (*)</label>
-                                <input id="class" type="text" class="form-control params" notnull value="{$item->class}" >
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="sort">{lang('sort')}</label>
-                                <input id="sort" type="text" class="form-control params" value="{$item->sort}" >
+                                <select id="class" class="form-control selectpicker params" notnull>
+                                    <option value=""></option>
+                                    {foreach from=$classList key=i item=item}
+                                        <option value="{$item->id}">{$item->class}</option>
+                                    {/foreach}
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -67,7 +72,7 @@
             return false;
         }
         initLoading('.box-info');
-        $.post('edit', params, function (data) {
+        $.post('add', params, function (data) {
             destroyLoading('.box-info');
             toastr.remove();
             if (data == 1) {
@@ -79,7 +84,7 @@
     }
 
     function funcCancel() {
-        window.location = '{base_url()}admin/manage-class/view';
+        window.location = '{base_url()}admin/manage-document/view';
     }
 
     function initLoading(element){
@@ -108,6 +113,15 @@
     }
     
     $(document).ready(function() {
-        
+    	$('#subject').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
+    	$('#class').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
     });
 </script>

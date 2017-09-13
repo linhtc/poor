@@ -96,6 +96,11 @@ $route['admin/manage-document/(:any)/(:any)'] = "admin/ManageDocument/$1/$2";
 $route['en/admin/manage-document/(:any)'] = "admin/ManageDocument/$1";
 $route['en/admin/manage-document/(:any)/(:any)'] = "admin/ManageDocument/$1/$2";
 
+$route['admin/manage-exam/(:any)'] = "admin/ManageExam/$1";
+$route['admin/manage-exam/(:any)/(:any)'] = "admin/ManageExam/$1/$2";
+$route['en/admin/manage-exam/(:any)'] = "admin/ManageExam/$1";
+$route['en/admin/manage-exam/(:any)/(:any)'] = "admin/ManageExam/$1/$2";
+
 $route['admin/manage-student-regis/(:any)'] = "admin/ManageStudentRegis/$1";
 $route['admin/manage-student-regis/(:any)/(:any)'] = "admin/ManageStudentRegis/$1/$2";
 $route['en/admin/manage-student-regis/(:any)'] = "admin/ManageStudentRegis/$1";

@@ -40,6 +40,10 @@ class Cdn extends MY_Controller {
         	);
         	$this->db->insert($this->metalogModel, $pullClass);
         	
+//         	if($_SERVER['HTTP_REFERER']){
+//         		echo $_SERVER['HTTP_REFERER']; exit;
+//         	}
+        	
 //             header('Content-Description: File Transfer');
 //             header('Content-Type: application/octet-stream');
 //             header('Content-Disposition: attachment; filename='.basename($file));
@@ -60,11 +64,16 @@ class Cdn extends MY_Controller {
         	$url = base_url().'media/uploads/documents/'.$path.'#toolbar=0&navpanes=0&page='.$page;
         	$next = base_url().'api/cdn/metadata/'.$path.'?page='.($page+1);
         	
+        	$url = base_url().'static/default/template/ViewerJS/#../../../../media/uploads/documents/'.$path;
+        	
+        	echo '<script>
+				if(location.href == top.location.href){
+					window.location = "'.base_url().'";
+				}
+			</script>';
 			echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>';
-			echo '<script>function on_load(){ 
+			echo '<script>function on_load(){
 				setTimeout(function(){
-					console.log("loaded");
-					document.oncontextmenu = function() {return false;};
 					document.onkeydown = function(e) {
 					    if(e.keyCode == 123) {
 					     return false;
@@ -85,14 +94,14 @@ class Cdn extends MY_Controller {
 					document.documentElement.style.overflow = \'hidden\';  // firefox, chrome
 				    document.body.scroll = "no";
 					if(/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())){
-						var nextButton = document.getElementById("next-button");
-						nextButton.style.display = \'none\';
+						
 					}
 				}, 1);
 			}</script>';
-			echo '<a id="next-button" href="'.$next.'" style="z-index:999999999; position:fixed; top:0; right:0; background: #ccc;width: 100%;text-align: center;height: 20px;vertical-align: middle;padding-top: 10px;padding-bottom: 10px;">NEXT</a>';
-        	echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="pointer-events: none; margin-top:0px;" onload="on_load(this)" ></iframe>';
-        	
+// 			echo '<a id="next-button" href="'.$next.'" style="z-index:999999999; position:fixed; top:0; right:0; background: #ccc;width: 100%;text-align: center;height: 20px;vertical-align: middle;padding-top: 10px;padding-bottom: 10px;">NEXT</a>';
+// 			echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="pointer-events: none; margin-top:0px;" onload="on_load(this)" ></iframe>';
+			echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="margin-top:0px;" onload="on_load(this)" ></iframe>';
+			
             exit;
         }
     }

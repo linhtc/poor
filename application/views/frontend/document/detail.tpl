@@ -30,7 +30,7 @@
 </div>
 
 <iframe id="iframe-doc-contain" class="iframe-doc iframe-doc-contain" src="" width="100%" height="100%"></iframe>
-<button onclick="$('.iframe-doc').hide();" type="button" class="btn btn-danger iframe-doc iframe-doc-button">X</button>
+<button onclick="$('.iframe-doc').hide();" type="button" class="btn btn-danger iframe-doc iframe-doc-button" style="opacity: 0;">X</button>
 <script>
 var specList = '{$specList}';
 var docStorage = '{$docStorage}';

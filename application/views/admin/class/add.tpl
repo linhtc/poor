@@ -29,6 +29,11 @@
                                 <label for="brand">{lang('class')} (*)</label>
                                 <input id="class" type="text" class="form-control params" notnull value="" >
                             </div>
+                            
+                            <div class="form-group">
+                                <label for="sort">{lang('sort')}</label>
+                                <input id="sort" type="text" class="form-control params" value="" >
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {lang('class')}
+        {lang('exam')}
         <small id="real-title">{lang('edit')}</small>
     </h1>
     <ol class="breadcrumb">
@@ -28,18 +28,28 @@
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="brand">{lang('id')} (*)</label>
-                                <input id="id" type="text" class="form-control params" notnull value="{$item->id}" readonly >
+                                <label for="slModule">ID</label>
+                                <input type="text" class="form-control params" id="id" value="{$item->id}" readonly notnull >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">{lang('subject')} (*)</label>
+                                <select id="subject" class="form-control selectpicker params" notnull>
+                                    <option value=""></option>
+                                    {foreach from=$subjectList key=i item=itemp}
+                                        <option value="{$itemp->id}">{$itemp->subject}</option>
+                                    {/foreach}
+                                </select>
                             </div>
                             
                             <div class="form-group">
                                 <label for="class">{lang('class')} (*)</label>
-                                <input id="class" type="text" class="form-control params" notnull value="{$item->class}" >
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="sort">{lang('sort')}</label>
-                                <input id="sort" type="text" class="form-control params" value="{$item->sort}" >
+                                <select id="class" class="form-control selectpicker params" notnull>
+                                    <option value=""></option>
+                                    {foreach from=$classList key=i item=itemp}
+                                        <option value="{$itemp->id}">{$itemp->class}</option>
+                                    {/foreach}
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -60,6 +70,9 @@
     var langComplete = '{lang('complete')}';
     var langChooseOne = '{lang('choose_one_option')}';
 
+    var itemSubject = '{$item->subject}';
+    var itemClass = '{$item->class}';
+
     function funcSubmit() {
         var params = getParams();
         if(params === false){
@@ -79,7 +92,7 @@
     }
 
     function funcCancel() {
-        window.location = '{base_url()}admin/manage-class/view';
+        window.location = '{base_url()}admin/manage-document/view';
     }
 
     function initLoading(element){
@@ -108,6 +121,17 @@
     }
     
     $(document).ready(function() {
-        
+    	$('#subject').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
+    	$('#class').selectpicker({
+            size: 10,
+            liveSearch: true,
+            noneSelectedText: langChooseOne
+        }).on('hidden.bs.select', function (e){ });
+    	$('#subject').selectpicker('val', itemSubject);
+    	$('#class').selectpicker('val', itemClass);
     });
 </script>

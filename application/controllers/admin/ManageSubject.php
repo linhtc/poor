@@ -129,7 +129,7 @@ class ManageSubject extends MY_Controller {
         $this->layout->set_layout('default');
 
 
-        $item = $this->db->select('id, subject')
+        $item = $this->db->select('id, subject, sort')
             ->from($this->subjectModel)
             ->where('id', $id)
             ->get()
@@ -183,14 +183,14 @@ class ManageSubject extends MY_Controller {
         $permission = $this->check_permission($this->class, 'view');
         $this->layout->disable_layout();
 
-        $sortMaps = array('id', 'modified', 'ipaddress', 'subject');
+        $sortMaps = array('id', 'modified', 'ipaddress', 'subject', 'sort');
         $page = $this->input->post('page', true);
         $sort = $this->input->post('sort', true);
         $type = $this->input->post('type', true);
         $numRows = $this->input->post('auto', true);
         if(!empty($numRows) && $numRows > 10 && $numRows < 101){ $this->numRows = $numRows; }
         $start = ($page-1)*$this->numRows;
-        $query = "select `id`, `modified`, `ipaddress`, `subject` from ".$this->subjectModel;
+        $query = "select `id`, `modified`, `ipaddress`, `subject`, `sort` from ".$this->subjectModel;
         $query .= $this->criteria();
         $num = $this->db->query($query)->num_rows();
         $query .= " order by `".(empty($sortMaps[$sort]) ? 'id' : $sortMaps[$sort]) ."` ".$type;
@@ -281,17 +281,19 @@ class ManageSubject extends MY_Controller {
      * Modify data
      */
     private function modify(){
-        $id = $this->input->post('id', false);
-        $subject= $this->input->post('subject', false);
+    	$id = $this->input->post('id', false);
+    	$subject = $this->input->post('subject', false);
+    	$sort = $this->input->post('sort', false);
         if(!empty($subject)){
         	$ip = $this->getClientIP();
         	$friendly = $this->stripVN($subject);
         	$friendly = preg_replace('/\s+/', '-', $friendly);
         	$friendly = strtolower($friendly);
             $query = "
-                INSERT INTO `".$this->subjectModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `subject`, `friendly`) 
-                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($subject)."', '".addslashes($friendly)."')
-                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `subject` = VALUES(subject), `friendly` = VALUES(friendly), 
+                INSERT INTO `".$this->subjectModel."` (".(!empty($id) ? '`id`, ' : '')."`created`, `modified`, `ipaddress`, `subject`, `friendly`, `sort`) 
+                VALUES (".(!empty($id) ? $id.', ' : '')."NOW(), NOW(), '".addslashes($ip)."', '".addslashes($subject)."', 
+					'".addslashes($friendly)."', '".addslashes($sort)."')
+                ON DUPLICATE KEY UPDATE `ipaddress` = VALUES(ipaddress), `subject` = VALUES(subject), `friendly` = VALUES(friendly), `sort` = VALUES(sort), 
 					`deleted` = VALUES(deleted), modified = VALUES(modified)
                 ;
             ";

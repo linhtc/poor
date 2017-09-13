@@ -28,13 +28,18 @@
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
-                                <label for="brand">{lang('id')} (*)</label>
+                                <label for="id">{lang('id')} (*)</label>
                                 <input id="id" type="text" class="form-control params" notnull value="{$item->id}" readonly >
                             </div>
                             
                             <div class="form-group">
-                                <label for="brand">{lang('subject')} (*)</label>
+                                <label for="subject">{lang('subject')} (*)</label>
                                 <input id="subject" type="text" class="form-control params" notnull value="{$item->subject}" >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="sort">{lang('sort')}</label>
+                                <input id="sort" type="text" class="form-control params" value="{$item->sort}" >
                             </div>
                         </form>
                     </div>
