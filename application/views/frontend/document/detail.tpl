@@ -1,9 +1,13 @@
 <div class="row" style="min-height: 300px;">
 	<div class="col-md-9 row-container-doc">
 		{include file='frontend/layouts/breadcrumb.tpl'}
+		
+		<h3>{$subject->subject} {$class->class}</h3>
+		
 		<div id="jstree">
 		
 		</div>
+		<iframe id="iframe-doc-contain" class="iframe-doc iframe-doc-contain" src="" width="100%" height="100%"></iframe>
 	</div>
 	<div class="col-md-3">
 		<div class="panel panel-primary">
@@ -29,8 +33,9 @@
 	</div>
 </div>
 
-<iframe id="iframe-doc-contain" class="iframe-doc iframe-doc-contain" src="" width="100%" height="100%"></iframe>
-<button onclick="$('.iframe-doc').hide();" type="button" class="btn btn-danger iframe-doc iframe-doc-button" style="opacity: 0;">X</button>
+<!-- .toolbarButton.closeview::before { display: inline-block;content: url(images/toolbarButton-close.png); } -->
+
+
 <script>
 var specList = '{$specList}';
 var docStorage = '{$docStorage}';
@@ -61,11 +66,30 @@ function destroyLoading(dom){
     dom.unblock();
 }
 
+function closeDocumentView(){
+	$('.module').css('overflowY', 'auto');
+	$('#jstree').show();
+	$('.iframe-doc').hide();
+	$('#iframe-doc-contain').removeClass('iframe-doc-fullscreen');
+}
+
+function fullscreenDocumentView(){
+	initLoading($('html'));
+	if($('#iframe-doc-contain').hasClass( "iframe-doc-fullscreen" )){
+		$('#iframe-doc-contain').removeClass('iframe-doc-fullscreen');
+	} else{
+		$('#iframe-doc-contain').addClass('iframe-doc-fullscreen');
+	}
+	setTimeout(function(){
+    	destroyLoading($('html'));
+    }, 500);
+}
+
 $(document).ready(function() {
     $('#jstree').jstree({
         'core' : { 'data' : specList, "check_callback" : true, },
         'ui': { select_multiple_modifier : false },
-        /* "plugins" : [ "dnd" ] */
+        "plugins" : [ "noclose" ]
     }).on('changed.jstree', function (e, data) {
         if(data.selected.length == 1) {
             var node = $('#jstree').jstree("get_text", data.selected);
@@ -80,6 +104,8 @@ $(document).ready(function() {
         	console.log(docStorage[data.selected[0]]);
         	$('#iframe-doc-contain').attr('src', docStorage[data.selected[0]]);
         	initLoading($('html'));
+        	/* $('.module').css('overflowY', 'hidden'); */
+        	$('#jstree').hide();
         	setTimeout(function(){
             	destroyLoading($('html'));
             	$('.iframe-doc').show();
@@ -91,6 +117,8 @@ $(document).ready(function() {
     }).bind("ready.jstree", function(e, data) {
         console.log("Ready jstree");
         $("#jstree").jstree("open_all");
+        $('.jstree-ocl').hide();
     });
+    $('#jstree').jstree().hide_dots();
 });
 </script>

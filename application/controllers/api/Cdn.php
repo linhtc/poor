@@ -65,43 +65,23 @@ class Cdn extends MY_Controller {
         	$next = base_url().'api/cdn/metadata/'.$path.'?page='.($page+1);
         	
         	$url = base_url().'static/default/template/ViewerJS/#../../../../media/uploads/documents/'.$path;
-        	
+        	echo '<html><body style="margin: 0px; padding: 0px; overflow: hidden; width: 100%; height: 100%;">';
         	echo '<script>
 				if(location.href == top.location.href){
 					window.location = "'.base_url().'";
 				}
+				function disableContextMenu() {
+				    document.getElementById("iframe").contentWindow.document.oncontextmenu = function(){ console.log("No way!"); return false;};  
+				} 
+				function closeDocumentView(){
+					window.parent.closeDocumentView();
+				}
+				function fullscreenDocumentView(){
+					window.parent.fullscreenDocumentView();
+				}
 			</script>';
-			echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>';
-			echo '<script>function on_load(){
-				setTimeout(function(){
-					document.onkeydown = function(e) {
-					    if(e.keyCode == 123) {
-					     return false;
-					    }
-					    if(e.ctrlKey && e.shiftKey && e.keyCode == \'I\'.charCodeAt(0)){
-					     return false;
-					    }
-					    if(e.ctrlKey && e.shiftKey && e.keyCode == \'J\'.charCodeAt(0)){
-					     return false;
-					    }
-					    if(e.ctrlKey && e.keyCode == \'U\'.charCodeAt(0)){
-					     return false;
-					    }
-					    if(e.ctrlKey && e.shiftKey && e.keyCode == \'C\'.charCodeAt(0)){
-					     return false;
-					    }      
-					 }
-					document.documentElement.style.overflow = \'hidden\';  // firefox, chrome
-				    document.body.scroll = "no";
-					if(/chrom(e|ium)/.test(navigator.userAgent.toLowerCase())){
-						
-					}
-				}, 1);
-			}</script>';
-// 			echo '<a id="next-button" href="'.$next.'" style="z-index:999999999; position:fixed; top:0; right:0; background: #ccc;width: 100%;text-align: center;height: 20px;vertical-align: middle;padding-top: 10px;padding-bottom: 10px;">NEXT</a>';
-// 			echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="pointer-events: none; margin-top:0px;" onload="on_load(this)" ></iframe>';
-			echo '<iframe id="iframe" src="'.$url.'" width="100%" height="100%" style="margin-top:0px;" onload="on_load(this)" ></iframe>';
-			
+        	echo '<iframe id="iframe" src="'.$url.'" onload="disableContextMenu();" oncontextmenu="return false" width="100%" height="100%" style="margin-top:0px;"></iframe>';
+			echo '</body></html>';
             exit;
         }
     }

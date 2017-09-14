@@ -4,7 +4,7 @@
 		{foreach from=$documents key=i item=item}
 		<div class="media">
 		  <div class="media-left">
-		    <img src="https://vcdn.tikicdn.com/cache/415x415/media/catalog/product/l/o/lop%205.u335.d20160423.t195730.jpg" class="media-object" style="width:60px">
+		    <img src="{base_url()}media/images/book.png" class="media-object" style="width:77px">
 		  </div>
 		  <div class="media-body">
 		    <h4 class="media-heading">{$item.subject}</h4>

@@ -91,10 +91,12 @@ class Document extends MY_Controller {
     		$specs = array();
     		if(count($specList)){
     			foreach($specList as $index=>$item){
-    				if($item->sketch){
-    					$item->icon = 'glyphicon glyphicon-file';
+    				if(empty($item->parent)){
+    					$item->icon = 'glyphicon glyphicon-th-large';
+    				} elseif($item->sketch){
+    					$item->icon = 'glyphicon glyphicon-record';
     				} else{
-    					$item->icon = 'glyphicon glyphicon-hdd';
+    					$item->icon = 'glyphicon glyphicon-record';
     				}
     				if($item->sketch){
     					$docStorage->{$item->id} = $item->sketch;
@@ -103,6 +105,8 @@ class Document extends MY_Controller {
     				array_push($specs, $item);
     			}
     		}
+    		$data['subject'] = $subject;
+    		$data['class'] = $class;
     		$data['specList'] = json_encode($specs);
     		$data['docStorage'] = json_encode($docStorage);
     		
@@ -147,50 +151,6 @@ class Document extends MY_Controller {
     			array_push($subarray, $sub->id);
     			$subarrayStr .= (empty($subarrayStr) ? '' : ', ')."'$sub->id'";
     		}
-    		$class = $this->db->select('id, class, friendly')
-    		->from($this->classModel)
-    		->where('deleted', 0)->where('friendly', $class)
-    		->get()->row();
-    		$query = "
-    		select rs.class, rs.classname, rs.friendly,
-    		group_concat(concat_ws(', ', (select concat(s.friendly, ':', s.subject) from e_subjects s where s.id = rs.`subject2`))) `subject`,
-    		(select c.sort from e_classes c where c.id = rs.class and c.deleted = 0) sort
-    		from (
-    		select d.class, d.`subject` subject2,
-    		(select c.sort from $this->subjectModel c where c.id = d.`subject` and c.deleted = 0) sort,
-    		(select c.class from $this->classModel c where c.id = d.class and c.deleted = 0) classname,
-    		(select c.friendly from $this->classModel c where c.id = d.class and c.deleted = 0) friendly
-    		from `$this->documentModel` d
-    		where d.deleted = 0 and d.subject in ($subarrayStr) and d.class = '$class->id'
-    		order by sort
-    		) rs
-    		GROUP BY `rs`.`class`
-    		order by sort asc;
-    		";
-    		$documentTmp = $this->db->query($query)->result_array();
-    		foreach($documentTmp as $tmp){
-    			$tmp = (object)$tmp;
-    			$subjects = $tmp->subject;
-    			$tmp->subjects = array();
-    			if(!empty($subjects)){
-    				$subjects = explode(',', $subjects);
-    				if(count($subjects)){
-    					foreach($subjects as $itmp){
-    						$itmp= explode(':', $itmp);
-    						if(count($itmp) === 2){
-    							$subItem = new stdClass();
-    							$subItem->friendly = $itmp[0];
-    							$subItem->subject= $itmp[1];
-    							array_push($tmp->subjects, (array)$subItem);
-    						}
-    					}
-    				}
-    			}
-    			array_push($documents, (array)$tmp);
-    		}
-    		
-    		$data['subject'] = $subject;
-    		$data['documents'] = $documents;
     		
     		$breadcrumb = array(
     				array(
@@ -203,15 +163,119 @@ class Document extends MY_Controller {
     						'url' => base_url().'tai-lieu/'.$subject->friendly,
     						'class' => ''
     				),
-    				array(
-    						'title' => $class->class,
-    						'url' => base_url().'tai-lieu/'.$subject->friendly.'/'.$class->friendly,
-    						'class' => 'active'
-    				),
     		);
-    		$data['breadcrumb'] = $breadcrumb;
     		
-    		$this->parser->parse($this->viewPath."class", $data);
+    		if(!empty($subarrayStr)){
+    			$class = $this->db->select('id, class, friendly')
+    			->from($this->classModel)
+    			->where('deleted', 0)->where('friendly', $class)
+    			->get()->row();
+    			$query = "
+    			select rs.class, rs.classname, rs.friendly,
+    			group_concat(concat_ws(', ', (select concat(s.friendly, ':', s.subject) from e_subjects s where s.id = rs.`subject2`))) `subject`,
+    			(select c.sort from e_classes c where c.id = rs.class and c.deleted = 0) sort
+    			from (
+    			select d.class, d.`subject` subject2,
+    			(select c.sort from $this->subjectModel c where c.id = d.`subject` and c.deleted = 0) sort,
+    			(select c.class from $this->classModel c where c.id = d.class and c.deleted = 0) classname,
+    			(select c.friendly from $this->classModel c where c.id = d.class and c.deleted = 0) friendly
+    			from `$this->documentModel` d
+    			where d.deleted = 0 and d.subject in ($subarrayStr) and d.class = '$class->id'
+    			order by sort
+    			) rs
+    			GROUP BY `rs`.`class`
+    			order by sort asc;
+    			";
+    			$documentTmp = $this->db->query($query)->result_array();
+    			foreach($documentTmp as $tmp){
+    				$tmp = (object)$tmp;
+    				$subjects = $tmp->subject;
+    				$tmp->subjects = array();
+    				if(!empty($subjects)){
+    					$subjects = explode(',', $subjects);
+    					if(count($subjects)){
+    						foreach($subjects as $itmp){
+    							$itmp= explode(':', $itmp);
+    							if(count($itmp) === 2){
+    								$subItem = new stdClass();
+    								$subItem->friendly = $itmp[0];
+    								$subItem->subject= $itmp[1];
+    								array_push($tmp->subjects, (array)$subItem);
+    							}
+    						}
+    					}
+    				}
+    				array_push($documents, (array)$tmp);
+    			}
+    			
+    			$data['subject'] = $subject;
+    			$data['class'] = $class;
+    			$data['documents'] = $documents;
+    			
+    			$subcrumb = array(
+    					'title' => $class->class,
+    					'url' => base_url().'tai-lieu/'.$subject->friendly.'/'.$class->friendly,
+    					'class' => 'active'
+    			);
+    			array_push($breadcrumb, $subcrumb);
+    			$data['breadcrumb'] = $breadcrumb;
+    			
+    			$this->parser->parse($this->viewPath."class", $data);
+    		} else{
+    			$subject = $this->db->select('id, subject, friendly')
+    			->from($this->subjectModel)
+    			->where('deleted', 0)->where('friendly', $subject->friendly)
+    			->get()->row();
+    			$class = $this->db->select('id, class, friendly')
+    			->from($this->classModel)
+    			->where('deleted', 0)->where('friendly', $class)
+    			->get()->row();
+    			$document = $this->db->select('id')
+    			->from($this->documentModel)
+    			->where('deleted', 0)->where('subject', $subject->id)->where('class', $class->id)
+    			->get()->row();
+    			
+    			$docStorage = new stdClass();
+    			$specList = $this->db->select('id, parent, title text, path sketch')
+    			->from($this->docDetailModel)
+    			->where('deleted', 0)
+    			->where('document', $document->id)
+    			->order_by('sort', 'asc')
+    			->get()->result()
+    			;
+    			$specs = array();
+    			if(count($specList)){
+    				foreach($specList as $index=>$item){
+    					if(empty($item->parent)){
+    						$item->icon = 'glyphicon glyphicon-th-large';
+    					} elseif($item->sketch){
+    						$item->icon = 'glyphicon glyphicon-record';
+    					} else{
+    						$item->icon = 'glyphicon glyphicon-record';
+    					}
+    					if($item->sketch){
+    						$docStorage->{$item->id} = $item->sketch;
+    					}
+    					if(empty($item->parent)){ $item->parent = '#'; }
+    					array_push($specs, $item);
+    				}
+    			}
+    			$data['subject'] = $subject;
+    			$data['class'] = $class;
+    			$data['specList'] = json_encode($specs);
+    			$data['docStorage'] = json_encode($docStorage);
+    			
+    			$subcrumb = array(
+    					'title' => $class->class,
+    					'url' => base_url().'tai-lieu/'.$subject->friendly.'/'.$class->friendly,
+    					'class' => 'active'
+    			);
+    			array_push($breadcrumb, $subcrumb);
+    			$data['breadcrumb'] = $breadcrumb;
+    			
+    			$this->parser->parse($this->viewPath."detail", $data);
+    		}
+    		
     	} elseif(!empty($subject)){
     		$subject = $this->db->select('id, subject, friendly')
     		->from($this->subjectModel)
@@ -228,6 +292,9 @@ class Document extends MY_Controller {
     			array_push($subarray, $sub->id);
     			$subarrayStr .= (empty($subarrayStr) ? '' : ', ')."'$sub->id'";
     		}
+    		if(empty($subarrayStr)){
+    			$subarrayStr = "'$subject->id'";
+    		}
     		$query = "
 				select rs.class, rs.classname, rs.friendly,
 					group_concat(concat_ws(', ', (select concat(s.friendly, ':', s.subject) from e_subjects s where s.id = rs.`subject2`))) `subject`,
@@ -238,7 +305,7 @@ class Document extends MY_Controller {
 					(select c.class from $this->classModel c where c.id = d.class and c.deleted = 0) classname, 
 					(select c.friendly from $this->classModel c where c.id = d.class and c.deleted = 0) friendly
 					from `$this->documentModel` d
-					where d.deleted = 0 ".(!empty($subarrayStr) ? "and d.subject in ($subarrayStr)" : '')."
+					where d.deleted = 0 and d.subject in ($subarrayStr)
 				    order by sort
 				) rs
 				GROUP BY `rs`.`class`
