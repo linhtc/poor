@@ -21,7 +21,7 @@ class Configurations extends MY_Controller {
         $this->numRows = 10;
         $this->moduleModel = 'mbs_modules';
         $this->campaignModel = 'campaigns';
-        $this->configModel = 'configurations';
+        $this->configModel = 'e_configuration';
         $this->viewPath = 'admin/configurations/';
     }
 	
@@ -139,7 +139,7 @@ class Configurations extends MY_Controller {
         $this->layout->set_layout('default');
 
 
-        $objCnf = $this->db->select('`id`, campaign, `apply_key`, `apply_value`, `apply_name`')
+        $objCnf = $this->db->select('`id`, `apply_key`, `apply_value`, `apply_name`')
             ->from($this->configModel)
             ->where('id', $id)
             ->get()
@@ -249,15 +249,15 @@ class Configurations extends MY_Controller {
      * Modify data
      */
     function modify(){
-        $campaign = $this->input->post('campaign', true);
         $key = $this->input->post('apply_key', true);
         $value = $this->input->post('apply_value', true);
         $name = $this->input->post('apply_name', true);
-        if(!empty($campaign) && !empty($key)){
+        if(!empty($key)){
             $query = "
-                INSERT INTO `".$this->configModel."` (`campaign`, `apply_key`, `apply_value`, `apply_name`, `created`, `modified`)
-                VALUES ('".addslashes($campaign)."', '".addslashes($key)."', '".addslashes($value)."', '".addslashes($name)."', NOW(), NOW())
-                ON DUPLICATE KEY UPDATE `apply_value` = '".addslashes($value)."', `apply_name` = '".addslashes($name)."', `modified` = NOW();
+                INSERT INTO `".$this->configModel."` (`apply_key`, `apply_value`, `apply_name`, `created`, `modified`)
+                VALUES ('".addslashes($key)."', '".addslashes($value)."', '".addslashes($name)."', NOW(), NOW())
+                ON DUPLICATE KEY UPDATE `apply_value` = '".addslashes($value)."', 
+					`apply_name` = '".addslashes($name)."', `modified` = NOW();
             ";
             $result = $this->db->query($query);
             return $result ? $result : 'Thực hiện không thành công!';

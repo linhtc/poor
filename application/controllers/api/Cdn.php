@@ -10,10 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Cdn extends MY_Controller {
 
 	private $metalogModel;
+	private $configModel;
 	
     function __construct() {
         parent::__construct();
         $this->metalogModel = 'sys_metalogs';
+        $this->configModel = 'e_configuration';
     }
 
     /**
@@ -32,6 +34,15 @@ class Cdn extends MY_Controller {
         $file = MEDIAPATH.'uploads/documents/'.$path;
 // echo $file; exit;
         if (file_exists($file)){
+        	$count = $this->db->select()->from($this->metalogModel)->where('ipaddress', $this->getClientIP())->where('file', $path)
+        	->get()->num_rows();
+        	$threshold = $this->db->select('apply_value')->from($this->configModel)->where('apply_key', 'threshold_viewer')->get()->row();
+        	$threshold = !empty($threshold->apply_value) ? $threshold->apply_value : 0;
+        	if($count > $threshold){
+//         		echo 'Để xem tiếp tài liệu này vui lòng liên hệ trung tâm';
+        		echo lang('contact_admin_to_continue');
+        		exit;
+        	}
         	$pullClass = array(
         			'created' => date('Y-m-d H:i:s', time()),
         			'modified' => date('Y-m-d H:i:s', time()),
