@@ -32,7 +32,10 @@
         points_edit: 'points_view',
         languages_edit: 'languages_view',
         'manage-document_detail': 'manage-document_view',
-        'manage-document_edit': 'manage-document_view'
+        'manage-document_edit': 'manage-document_view',
+        'manage-consultant_edit': 'manage-consultant_view',
+        'manage-exam_edit': 'manage-exam_view',
+        'manage-exam_detail': 'manage-exam_view'
     };
     try{
         var langKey = '{$smarty.session.lang_key}';

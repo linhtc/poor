@@ -49,6 +49,32 @@ class MY_Controller extends CI_Controller {
         ->result()
         ;
         $this->session->set_userdata('subject_menu', $subjects);
+        
+        // tai lieu moi
+        $documents = $this->db->select('id, subject, friendly')
+        ->from('e_subjects')->where('deleted', 0)
+        ->where('parent', 0)
+        ->order_by('sort', 'asc')
+        ->get()->result();
+        $this->session->set_userdata('new_document', $documents);
+        
+        // lop moi
+        $documents = $this->db->select('id, class, subject')
+        ->from('e_new_classes')->where('deleted', 0)
+        ->where('deleted', 0)
+        ->order_by('id', 'desc')
+        ->limit(10)
+        ->get()->result();
+        $this->session->set_userdata('new_class', $documents);
+        
+        // tin tuc va su kien
+        $documents = $this->db->select('id, title, friendly')
+        ->from('e_news')->where('deleted', 0)
+        ->where('deleted', 0)
+        ->order_by('id', 'desc')
+        ->limit(10)
+        ->get()->result();
+        $this->session->set_userdata('hot_news', $documents);
     }
     public function checkPermission($permission = 'r') {
         $is_sign_in = $this->checkSignIn();

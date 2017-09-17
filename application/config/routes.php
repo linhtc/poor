@@ -67,6 +67,13 @@ $route['tai-lieu/(:any)'] = 'frontend/document/view/$1';
 $route['tai-lieu/(:any)/(:any)'] = 'frontend/document/view/$1/$2';
 $route['tai-lieu/(:any)/(:any)/(:any)'] = 'frontend/document/view/$1/$2/$3';
 
+$route['de-thi'] = 'frontend/exam/view';
+$route['de-thi/(:any)'] = 'frontend/exam/view/$1';
+$route['de-thi/(:any)/(:any)'] = 'frontend/exam/view/$1/$2';
+$route['de-thi/(:any)/(:any)/(:any)'] = 'frontend/exam/view/$1/$2/$3';
+
+$route['tu-van-mua-sach'] = 'frontend/consultant/view';
+$route['tu-van-mua-sach/(:any)'] = 'frontend/consultant/view/$1';
 $route['lop-moi'] = 'frontend/NewClass/view';
 $route['hoc-phi'] = 'frontend/fee/view';
 $route['muc-phi-nhan-lop'] = 'frontend/MinFee/view';
@@ -130,6 +137,11 @@ $route['admin/manage-news/(:any)'] = "admin/ManageNews/$1";
 $route['admin/manage-news/(:any)/(:any)'] = "admin/ManageNews/$1/$2";
 $route['en/admin/manage-news/(:any)'] = "admin/ManageNews/$1";
 $route['en/admin/manage-news/(:any)/(:any)'] = "admin/ManageNews/$1/$2";
+
+$route['admin/manage-consultant/(:any)'] = "admin/ManageConsultant/$1";
+$route['admin/manage-consultant/(:any)/(:any)'] = "admin/ManageConsultant/$1/$2";
+$route['en/admin/manage-consultant/(:any)'] = "admin/ManageConsultant/$1";
+$route['en/admin/manage-consultant/(:any)/(:any)'] = "admin/ManageConsultant/$1/$2";
 
 $route['admin/manage-fee/(:any)'] = "admin/ManageFee/$1";
 $route['admin/manage-fee/(:any)/(:any)'] = "admin/ManageFee/$1/$2";

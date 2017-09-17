@@ -25,17 +25,18 @@
 					{/foreach}
 				</ul>
 			</li>
-			<li class="dropdown">
-				<a href="{base_url()}tai-lieu">Đề thi</a>
+			<li class="dropdown {if $uuid eq 'exam'}active{/if}">
+				<a href="{base_url()}de-thi">Đề thi</a>
 				<i class="btn-dropdown dropdown-toggle fa fa-chevron-down" data-toggle="dropdown"></i>
 				<ul class="dropdown-menu fadeInUp animate1">
 					{foreach from=$smarty.session.subject_menu key=ksub item=isub}
 					<li class="">
-						<a href="{base_url()}tai-lieu/{$isub->friendly}">Đề thi môn {$isub->subject}</a>
+						<a href="{base_url()}de-thi/{$isub->friendly}">Đề thi môn {$isub->subject}</a>
 					</li>
 					{/foreach}
 				</ul>
 			</li>
+			<li class="{if $uuid eq 'consultant'}active{/if}"><a href="{base_url()}tu-van-mua-sach">Tư vấn mua sách</a></li>
 			<li class="{if $uuid eq 'newclass'}active{/if}"><a href="{base_url()}lop-moi">Lớp mới</a></li>
 			<li class="{if $uuid eq 'fee'}active{/if}"><a href="{base_url()}hoc-phi">Học phí</a></li>
 			<li class="{if $uuid eq 'minfee'}active{/if}"><a href="{base_url()}muc-phi-nhan-lop">Mức phí nhận lớp</a></li>

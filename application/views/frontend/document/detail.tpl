@@ -10,26 +10,9 @@
 		<iframe id="iframe-doc-contain" class="iframe-doc iframe-doc-contain" src="" width="100%" height="100%"></iframe>
 	</div>
 	<div class="col-md-3">
-		<div class="panel panel-primary">
-		  	<div class="panel-heading">Tài liệu mới</div>
-		  	<div class="panel-body">
-				<ul class="list-group">
-				  	<li class="list-group-item">First item</li>
-				  	<li class="list-group-item">Second item</li>
-					<li class="list-group-item">Third item</li>
-				</ul>
-			</div>
-		</div>
-		<div class="panel panel-primary">
-		  	<div class="panel-heading">Lớp mới đăng</div>
-		  	<div class="panel-body">
-				<ul class="list-group">
-				  	<li class="list-group-item">First item</li>
-				  	<li class="list-group-item">Second item</li>
-					<li class="list-group-item">Third item</li>
-				</ul>
-			</div>
-		</div>
+		{include file='frontend/layouts/exam.tpl'}
+		{include file='frontend/layouts/newclass.tpl'}
+		{include file='frontend/layouts/hotnews.tpl'}
 	</div>
 </div>
 
