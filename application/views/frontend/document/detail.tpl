@@ -70,7 +70,7 @@ function fullscreenDocumentView(){
 
 $(document).ready(function() {
     $('#jstree').jstree({
-        'core' : { 'data' : specList, "check_callback" : true, },
+        'core' : { 'data' : specList, "check_callback" : true, "themes": { "name": "mobile" } },
         'ui': { select_multiple_modifier : false },
         "plugins" : [ "noclose" ]
     }).on('changed.jstree', function (e, data) {
